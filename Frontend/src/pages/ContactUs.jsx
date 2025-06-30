@@ -100,7 +100,7 @@ const ContactUs = () => {
             <div>
               <h3 className="text-2xl font-bold mb-6">Contact</h3>
 
-              <div className="flex flex-wrap gap-6 mb-8">
+              <div className="flex  gap-6 mb-8">
                 <div className="w-full md:w-1/2">
                   <p className="font-medium mb-2">Email:</p>
                   <p className="italic">Glorydam@mails.com</p>
@@ -114,22 +114,47 @@ const ContactUs = () => {
               {/* Socials */}
               <div>
                 <h4 className="text-xl font-bold mb-4">Socials</h4>
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex items-center space-x-2 w-1/2">
-                    <span className="text-lg">f</span>
-                    <span className="italic">lensbydamin</span>
+                <div className="flex flex-col md:flex-row gap-4">
+                  {/* Group 1 */}
+                  <div className="flex flex-col gap-4 w-full md:w-1/2">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/images/facebook.png"
+                        alt="facebook"
+                        className="w-5 h-5"
+                      />
+                      <p className="italic">lensbydamin</p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/images/twitter.png"
+                        alt="twitter"
+                        className="w-4 h-4"
+                      />
+                      <p className="italic">lens</p>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2 w-1/2">
-                    <span className="text-lg">@</span>
-                    <span className="italic">lens_by_d</span>
-                  </div>
-                  <div className="flex items-center space-x-2 w-1/2">
-                    <span className="text-lg">X</span>
-                    <span className="italic">lens</span>
-                  </div>
-                  <div className="flex items-center space-x-2 w-1/2">
-                    <span className="text-lg">P</span>
-                    <span className="italic">lenzzz</span>
+
+                  {/* Group 2 */}
+                  <div className="flex flex-col gap-4 w-full md:w-1/2">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/images/instagram.png"
+                        alt="instagram"
+                        className="w-4 h-4"
+                      />
+                      <p className="italic">lens_by_d</p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/images/pinterest.png"
+                        alt="pinterest"
+                        className="w-4 h-4"
+                      />
+                      <p className="italic">lenzzz</p>
+                    </div>
                   </div>
                 </div>
               </div>

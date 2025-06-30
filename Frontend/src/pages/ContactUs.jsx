@@ -1,7 +1,79 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+import { useState } from "react";
+
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    location: "",
+    proposedDate: "",
+    budget: "",
+    hearAbout: "",
+    eventType: [],
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox") {
+      setFormData((prev) => {
+        const updatedEventTypes = checked
+          ? [...prev.eventType, value]
+          : prev.eventType.filter((event) => event !== value);
+
+        return { ...prev, eventType: updatedEventTypes };
+      });
+    } else if (type === "radio") {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted:", formData);
+    // You can also reset form here if needed:
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      location: "",
+      proposedDate: "",
+      budget: "",
+      hearAbout: "",
+      eventType: [],
+      message: "",
+    });
+  };
+
+  const canadaCities = [
+    "Toronto",
+    "Vancouver",
+    "Montreal",
+    "Calgary",
+    "Ottawa",
+    "Edmonton",
+    "Quebec City",
+    "Winnipeg",
+    "Hamilton",
+    "Victoria",
+    "Halifax",
+    "Regina",
+    "Saskatoon",
+    "St. John's",
+    "Windsor",
+    "Mississauga",
+    "Brampton",
+    "Surrey",
+    "Guelph",
+    "Kelowna",
+  ];
+
   return (
     <div>
       <Header />
@@ -16,12 +88,12 @@ const ContactUs = () => {
                 alt="Camera lens - Book Your Experience With Us!"
                 className="w-full h-80 object-cover rounded-lg"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
+              {/* <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
                 <div className="text-center text-white">
                   <h2 className="text-3xl font-bold mb-2">Book Your</h2>
                   <h2 className="text-3xl font-bold">Experience With Us!</h2>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Contact Info */}
@@ -66,14 +138,16 @@ const ContactUs = () => {
 
           {/* Right Column */}
           <div className="flex-1">
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2">NAME*</label>
                 <input
                   type="text"
                   name="name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
                 />
               </div>
 
@@ -84,8 +158,10 @@ const ContactUs = () => {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Kindly include your country code"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+234 812 345 6789"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
                 />
               </div>
 
@@ -96,9 +172,11 @@ const ContactUs = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Please, cross check your email address"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
+                  placeholder="Enter a valid email address"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
                 />
               </div>
 
@@ -108,9 +186,11 @@ const ContactUs = () => {
                 </label>
                 <select
                   name="location"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black bg-white"
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-white"
                 >
-                  <option value="">Select</option>
+                  <option value="">Where will the event take place?</option>
                   <option value="local">Local</option>
                   <option value="national">National</option>
                   <option value="international">International</option>
@@ -124,8 +204,10 @@ const ContactUs = () => {
                 <input
                   type="date"
                   name="proposedDate"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  value={formData.proposedDate}
+                  onChange={handleChange}
                   required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
                 />
               </div>
 
@@ -135,9 +217,11 @@ const ContactUs = () => {
                 </label>
                 <textarea
                   name="budget"
-                  placeholder="Kindly include your budget"
+                  value={formData.budget}
+                  onChange={handleChange}
                   rows="3"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black resize-none"
+                  placeholder="Kindly include your budget"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none"
                 />
               </div>
 
@@ -146,33 +230,19 @@ const ContactUs = () => {
                   How did you hear about us?
                 </label>
                 <div className="flex flex-wrap gap-6">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="hearAbout"
-                      value="instagram"
-                      className="mr-2"
-                    />
-                    Instagram
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="hearAbout"
-                      value="referral"
-                      className="mr-2"
-                    />
-                    Referral
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="hearAbout"
-                      value="others"
-                      className="mr-2"
-                    />
-                    Others
-                  </label>
+                  {["instagram", "referral", "others"].map((source) => (
+                    <label key={source} className="flex items-center">
+                      <input
+                        type="radio"
+                        name="hearAbout"
+                        value={source}
+                        checked={formData.hearAbout === source}
+                        onChange={handleChange}
+                        className="mr-2"
+                      />
+                      {source.charAt(0).toUpperCase() + source.slice(1)}
+                    </label>
+                  ))}
                 </div>
               </div>
 
@@ -181,42 +251,23 @@ const ContactUs = () => {
                   Event session
                 </label>
                 <div className="flex flex-wrap gap-4">
-                  <label className="flex items-center w-1/2">
-                    <input
-                      type="checkbox"
-                      name="eventType"
-                      value="weddings"
-                      className="mr-2"
-                    />
-                    Weddings
-                  </label>
-                  <label className="flex items-center w-1/2">
-                    <input
-                      type="checkbox"
-                      name="eventType"
-                      value="portraits"
-                      className="mr-2"
-                    />
-                    Portraits
-                  </label>
-                  <label className="flex items-center w-1/2">
-                    <input
-                      type="checkbox"
-                      name="eventType"
-                      value="birthdays"
-                      className="mr-2"
-                    />
-                    Birthdays
-                  </label>
-                  <label className="flex items-center w-1/2">
-                    <input
-                      type="checkbox"
-                      name="eventType"
-                      value="outdoor-events"
-                      className="mr-2"
-                    />
-                    Outdoor Events
-                  </label>
+                  {["weddings", "portraits", "birthdays", "outdoor-events"].map(
+                    (event) => (
+                      <label key={event} className="flex items-center w-1/2">
+                        <input
+                          type="checkbox"
+                          name="eventType"
+                          value={event}
+                          checked={formData.eventType.includes(event)}
+                          onChange={handleChange}
+                          className="mr-2"
+                        />
+                        {event
+                          .replace("-", " ")
+                          .replace(/\b\w/g, (l) => l.toUpperCase())}
+                      </label>
+                    )
+                  )}
                 </div>
               </div>
 
@@ -226,10 +277,12 @@ const ContactUs = () => {
                 </label>
                 <textarea
                   name="message"
-                  placeholder="Kindly share with us more information about your event"
-                  rows="4"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black resize-none"
+                  value={formData.message}
+                  onChange={handleChange}
                   required
+                  rows="4"
+                  placeholder="Kindly tell us more about your Event"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none"
                 />
               </div>
 

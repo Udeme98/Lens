@@ -1,41 +1,34 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
+  const getLinkClass = ({ isActive }) =>
+    isActive
+      ? "text-black font-medium border-b-2 border-black pb-1"
+      : "text-black font-medium hover:text-gray-600 pb-1";
+
   return (
     <header className="bg-white py-6 px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center">
+        <Link to="/" className="flex items-center">
           <img
             src="/images/logo.png"
             alt="Lens by Damiano Logo"
             className="h-16 w-auto"
           />
-        </div>
+        </Link>
         <nav className="flex space-x-8">
-          <Link
-            to="/"
-            className="text-black font-medium hover:text-gray-600 border-b-2 border-black pb-1"
-          >
+          <NavLink to="/" className={getLinkClass}>
             Home
-          </Link>
-          <Link
-            to="/gallery"
-            className="text-black font-medium hover:text-gray-600"
-          >
+          </NavLink>
+          <NavLink to="/gallery" className={getLinkClass}>
             Gallery
-          </Link>
-          <Link
-            to="/about"
-            className="text-black font-medium hover:text-gray-600"
-          >
+          </NavLink>
+          <NavLink to="/about" className={getLinkClass}>
             About
-          </Link>
-          <Link
-            to="/contact"
-            className="text-black font-medium hover:text-gray-600"
-          >
+          </NavLink>
+          <NavLink to="/contact" className={getLinkClass}>
             Contact Us
-          </Link>
+          </NavLink>
         </nav>
       </div>
     </header>

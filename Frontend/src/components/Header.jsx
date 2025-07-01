@@ -10,6 +10,11 @@ const Header = () => {
       ? "text-black font-medium border-b-2 border-black pb-1"
       : "text-black font-medium hover:text-gray-600 pb-1";
 
+  const getLinkClassMobile = ({ isActive }) =>
+    isActive
+      ? "text-black font-medium border-b-2 border-black pb-1 "
+      : "text-black font-medium hover:text-gray-600 pb-1";
+
   return (
     <header className="bg-white py-6 px-8 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -53,28 +58,28 @@ const Header = () => {
         <div className="md:hidden mt-4 px-8 flex flex-col space-y-4">
           <NavLink
             to="/"
-            className={getLinkClass}
+            className={getLinkClassMobile}
             onClick={() => setIsOpen(false)}
           >
             Home
           </NavLink>
           <NavLink
             to="/gallery"
-            className={getLinkClass}
+            className={getLinkClassMobile}
             onClick={() => setIsOpen(false)}
           >
             Gallery
           </NavLink>
           <NavLink
             to="/about"
-            className={getLinkClass}
+            className={getLinkClassMobile}
             onClick={() => setIsOpen(false)}
           >
             About
           </NavLink>
           <NavLink
             to="/contact"
-            className={getLinkClass}
+            className={getLinkClassMobile}
             onClick={() => setIsOpen(false)}
           >
             Contact Us

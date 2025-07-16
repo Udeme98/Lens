@@ -2,6 +2,8 @@ import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import Gallery from "./pages/Gallery";
 import ContactUs from "./pages/ContactUs";
+import BookingPage from "./pages/BookingPage";
+import BookingFormPage from "./pages/BookingFormPage";
 import "./fonts.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -13,6 +15,8 @@ const App = () => {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/booking-page" element={<BookingPage />} />
+        <Route path="/booking-page/:id" element={<BookingFormPage />} />
       </Routes>
     </div>
   );

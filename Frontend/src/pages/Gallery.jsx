@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const Gallery = () => {
   // Static image set (Weddings)
@@ -23,7 +24,7 @@ const Gallery = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#262627]">
       <Header />
 
       <main className="px-6 md:px-8 py-12">
@@ -71,9 +72,11 @@ const Gallery = () => {
 
           {/* Book Session Button */}
           <div className="flex justify-center">
-            <button className="bg-[#f5f0e6] hover:bg-[#eae3d7] text-black font-medium py-3 px-6 rounded-md transition-colors underline text-sm">
-              Book A Session With Us Now
-            </button>
+            <Link to="/booking-page">
+              <button className="bg-[#f5f0e6] hover:bg-[#eae3d7] text-black font-medium py-3 px-6 rounded-md transition-colors underline text-sm">
+                Book A Session With Us Now
+              </button>
+            </Link>
           </div>
         </div>
       </main>

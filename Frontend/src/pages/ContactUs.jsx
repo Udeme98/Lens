@@ -34,22 +34,58 @@ const ContactUs = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData);
-    // You can also reset form here if needed:
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      location: "",
-      proposedDate: "",
-      budget: "",
-      hearAbout: "",
-      eventType: [],
-      message: "",
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Form Submitted:", formData);
+  //   // You can also reset form here if needed:
+  //   setFormData({
+  //     name: "",
+  //     phone: "",
+  //     email: "",
+  //     location: "",
+  //     proposedDate: "",
+  //     budget: "",
+  //     hearAbout: "",
+  //     eventType: [],
+  //     message: "",
+  //   });
+  // };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('http://localhost:3011/booking/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
     });
-  };
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(data.message);
+    
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        location: "",
+        proposedDate: "",
+        budget: "",
+        hearAbout: "",
+        eventType: [],
+        message: "",
+      });
+    } else {
+      alert(`Error: ${data.message || 'Something went wrong.'}`);
+    }
+  } catch (error) {
+    console.error('Network error or unexpected issue:', error);
+    alert('Failed to connect to the server. Please check your internet connection and try again.');
+  }
+};
 
   const canadaCities = [
     "Toronto",

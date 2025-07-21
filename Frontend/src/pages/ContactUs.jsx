@@ -113,7 +113,7 @@ const handleSubmit = async (e) => {
   return (
     <div>
       <Header />
-      <main className="px-8 py-12">
+      <main className="px-8 py-12 bg-[#262627]">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
           {/* Left Column */}
           <div className="flex-1 space-y-8">
@@ -133,7 +133,7 @@ const handleSubmit = async (e) => {
             </div>
 
             {/* Contact Info */}
-            <div>
+            <div className="text-white">
               <h3 className="text-2xl font-bold mb-6">Contact</h3>
 
               <div className="flex  gap-6 mb-8">
@@ -199,7 +199,7 @@ const handleSubmit = async (e) => {
 
           {/* Right Column */}
           <div className="flex-1">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6 text-white">
               <div>
                 <label className="block text-sm font-medium mb-2">NAME*</label>
                 <input
@@ -208,7 +208,7 @@ const handleSubmit = async (e) => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
                 />
               </div>
 
@@ -222,7 +222,7 @@ const handleSubmit = async (e) => {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+234 812 345 6789"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
                 />
               </div>
 
@@ -237,7 +237,7 @@ const handleSubmit = async (e) => {
                   onChange={handleChange}
                   required
                   placeholder="Enter a valid email address"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
                 />
               </div>
 
@@ -249,7 +249,7 @@ const handleSubmit = async (e) => {
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
                 >
                   <option value="">Where will the event take place?</option>
                   <option value="local">Local</option>
@@ -268,7 +268,7 @@ const handleSubmit = async (e) => {
                   value={formData.proposedDate}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
                 />
               </div>
 
@@ -282,7 +282,7 @@ const handleSubmit = async (e) => {
                   onChange={handleChange}
                   rows="3"
                   placeholder="Kindly include your budget"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none bg-[#262627]"
                 />
               </div>
 
@@ -299,7 +299,7 @@ const handleSubmit = async (e) => {
                         value={source}
                         checked={formData.hearAbout === source}
                         onChange={handleChange}
-                        className="mr-2"
+                        className="mr-2 bg-[#262627]"
                       />
                       {source.charAt(0).toUpperCase() + source.slice(1)}
                     </label>
@@ -321,7 +321,7 @@ const handleSubmit = async (e) => {
                           value={event}
                           checked={formData.eventType.includes(event)}
                           onChange={handleChange}
-                          className="mr-2"
+                          className="mr-2 bg-[#262627]"
                         />
                         {event
                           .replace("-", " ")
@@ -343,7 +343,7 @@ const handleSubmit = async (e) => {
                   required
                   rows="4"
                   placeholder="Kindly tell us more about your Event"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none bg-[#262627]"
                 />
               </div>
 

@@ -7,23 +7,23 @@ const Header = () => {
 
   const getLinkClass = ({ isActive }) =>
     isActive
-      ? "text-black font-medium border-b-2 border-black pb-1"
-      : "text-black font-medium hover:text-gray-600 pb-1";
+      ? "text-white font-medium border-b-2 border-white pb-1"
+      : "text-white font-medium hover:text-gray-200 pb-1";
 
   const getLinkClassMobile = ({ isActive }) =>
     isActive
-      ? "text-black font-medium border-b-2 border-black pb-1 "
-      : "text-black font-medium hover:text-gray-600 pb-1";
+      ? "text-white font-medium border-b-2 border-white pb-1 "
+      : "text-white font-medium hover:text-gray-100 pb-1";
 
   return (
-    <header className="bg-white py-6 px-8 shadow-md">
+    <header className="bg-[#262627] py-6 px-8 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
-            src="/images/logo.png"
+            src="/images/logo2.png"
             alt="Lens by Damiano Logo"
-            className="h-16 w-auto"
+            className="h-20 w-auto"
           />
         </Link>
 
@@ -45,7 +45,7 @@ const Header = () => {
 
         {/* Hamburger Icon (Mobile only) */}
         <button
-          className="md:hidden text-black"
+          className="md:hidden text-white"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >

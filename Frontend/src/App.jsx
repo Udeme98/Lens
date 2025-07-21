@@ -4,6 +4,8 @@ import Gallery from "./pages/Gallery";
 import ContactUs from "./pages/ContactUs";
 import BookingPage from "./pages/BookingPage";
 import BookingFormPage from "./pages/BookingFormPage";
+import BookingConfirmationPage from "./pages/BookingConfirmationPage";
+import BookingSuccessPage from "./pages/BookingSuccessPage";
 import "./fonts.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -17,6 +19,11 @@ const App = () => {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/booking-page" element={<BookingPage />} />
         <Route path="/booking-page/:id" element={<BookingFormPage />} />
+        <Route
+          path="/booking-confirmation"
+          element={<BookingConfirmationPage />}
+        />
+        <Route path="/booking-success" element={<BookingSuccessPage />} />
       </Routes>
     </div>
   );

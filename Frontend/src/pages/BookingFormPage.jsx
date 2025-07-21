@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer"; // Assuming Footer is the same
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const BookingFormPage = () => {
   // State for the form data
@@ -140,6 +140,7 @@ const BookingFormPage = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // Find selected service by ID
   const serviceDetails = allServices.find((service) => service.id === id);
@@ -235,20 +236,42 @@ const BookingFormPage = () => {
   };
 
   // Handle form submission
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Booking Form Submitted:", formData);
+  //   // Here you would typically send data to a backend or confirmation page
+  //   alert("Booking form submitted! (Check console for data)");
+  //   // Optionally reset form
+  //   setFormData({
+  //     firstName: "",
+  //     lastName: "",
+  //     phone: "",
+  //     email: "",
+  //     message: "",
+  //     selectedDate: "",
+  //     selectedTime: "",
+  //   });
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Booking Form Submitted:", formData);
-    // Here you would typically send data to a backend or confirmation page
-    alert("Booking form submitted! (Check console for data)");
-    // Optionally reset form
-    setFormData({
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      message: "",
-      selectedDate: "",
-      selectedTime: "",
+
+    // Basic validation (you can add more robust validation)
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.phone ||
+      !formData.email ||
+      !formData.selectedDate ||
+      !formData.selectedTime
+    ) {
+      alert("Please fill in all required fields and select a date and time.");
+      return;
+    }
+
+    // Navigate to the confirmation page, passing the form data and service details
+    navigate("/booking-confirmation", {
+      state: { formData, serviceDetails },
     });
   };
 

@@ -7,7 +7,10 @@ const ServiceCard = ({ id, imageSrc, title, description, price, features }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#202021] rounded-lg shadow-md overflow-hidden text-white w-[380px]">
+    <div
+      onClick={() => navigate(`/booking-page/${id}`)}
+      className="bg-[#202021] rounded-lg shadow-md overflow-hidden text-white w-[380px] cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+    >
       <img src={imageSrc} alt={title} className="w-[380px] h-[340px]" />
       <div className="p-4">
         <h3 className="text-xl font-bold mb-2">{title}</h3>
@@ -20,12 +23,6 @@ const ServiceCard = ({ id, imageSrc, title, description, price, features }) => {
             ))}
           </ul>
         )}
-        <button
-          onClick={() => navigate(`/booking-page/${id}`)}
-          className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition-colors text-sm"
-        >
-          BOOK NOW
-        </button>
       </div>
     </div>
   );

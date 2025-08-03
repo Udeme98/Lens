@@ -1,8 +1,17 @@
-import { IsString, IsEmail, IsNotEmpty, IsDecimal, IsDateString } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsDecimal, IsDateString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
 export class CreateInvoiceDto {
+  @ApiProperty({
+    description: 'Client name',
+    example: 'John Doe'
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Transform(({ value }) => value.trim())
+  clientName: string;
+
   @ApiProperty({
     description: 'Client email address',
     example: 'client@example.com'
@@ -11,6 +20,16 @@ export class CreateInvoiceDto {
   @IsNotEmpty()
   @Transform(({ value }) => value.trim())
   email: string;
+
+  @ApiProperty({
+    description: 'Client phone number',
+    example: '+1234567890',
+    required: false
+  })
+  @IsString()
+  @IsOptional()
+  @Transform(({ value }) => value?.trim())
+  phone?: string;
 
   @ApiProperty({
     description: 'Type of event for the invoice',
@@ -54,4 +73,23 @@ export class CreateInvoiceDto {
   @IsNotEmpty()
   @Transform(({ value }) => value.trim())
   location: string;
+
+  @ApiProperty({
+    description: 'Description of services provided',
+    example: 'Wedding photography with reception coverage',
+    required: false
+  })
+  @IsString()
+  @IsOptional()
+  @Transform(({ value }) => value?.trim())
+  description?: string;
+
+  @ApiProperty({
+    description: 'Due date for payment',
+    example: '2025-09-15T10:00:00Z',
+    required: false
+  })
+  @IsDateString()
+  @IsOptional()
+  dueDate?: string;
 }

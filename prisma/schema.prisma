@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+
 }
 
 datasource db {
@@ -62,15 +63,19 @@ model Contract {
 }    
 
 model Invoice {
-  id        String   @id @default(cuid())
-  email     String
-  eventType String
-  amount    Decimal  @db.Decimal(10, 2)
-  duration  String
-  date      DateTime
-  location  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  clientName  String
+  email       String
+  phone       String?
+  eventType   String
+  amount      Decimal  @db.Decimal(10, 2)
+  duration    String
+  date        DateTime
+  location    String
+  description String?
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("invoices")
 }

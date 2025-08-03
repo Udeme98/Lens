@@ -14,8 +14,8 @@ import * as path from 'path';
       useFactory: async (configService: ConfigService) => ({
         transport: {
           host: 'smtp.gmail.com', // Gmail SMTP host
-          port: 587,              // Standard TLS port for Gmail
-          secure: false,          // Use TLS, not SSL directly (STARTTLS)
+          port: 465,              // SSL port for Gmail
+          secure: true,           // Use SSL
           auth: {
             user: configService.get<string>('GMAIL_USER'), // Your Gmail email address
             pass: configService.get<string>('GMAIL_APP_PASSWORD'), // Your App Password or regular password

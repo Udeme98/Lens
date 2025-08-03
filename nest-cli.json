@@ -9,6 +9,14 @@
       {
         "include": "mail/templates/**/*.hbs",
         "watchAssets": true
+      },
+      {
+        "include": "mail/templates/**/*.jpg",
+        "watchAssets": true
+      },
+      {
+        "include": "mail/templates/**/*.png",
+        "watchAssets": true
       }
     ]
   }

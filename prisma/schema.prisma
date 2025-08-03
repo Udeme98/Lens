@@ -21,7 +21,7 @@ model Booking {
   email        String
   location     String
   eventDate    DateTime?
-  duration     DateTime
+  duration     String     // Time duration (e.g., "2 hours", "14:30-16:00", "120 minutes")
   budget       String?
   eventType    String[]
   services     String[]  @default([])
@@ -50,7 +50,7 @@ model Contract {
   email       String
   location    String
   eventDate   DateTime?
-  duration    DateTime
+  duration    String
   total_fee   Float?
   hourly_rate Float?
   retainer_price Float?

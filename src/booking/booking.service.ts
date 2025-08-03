@@ -22,7 +22,7 @@ export class BookingService {
         email: createBookingDto.email,
         location: createBookingDto.location,
         eventDate: createBookingDto.eventDate ? new Date(createBookingDto.eventDate) : null,
-        duration: new Date(createBookingDto.duration),
+        duration: createBookingDto.duration, // Store as string (e.g., "14:30", "2h", "120 minutes")
         budget: createBookingDto.budget,
         eventType: createBookingDto.eventType,
         services: createBookingDto.services || [],
@@ -39,28 +39,37 @@ export class BookingService {
     };
   }
 
-  async createBooking(createBookingDto: CreateBookingDto): Promise<Booking> {
-    return this.prisma.booking.create({
-      data: {
-        firstName: createBookingDto.firstName,
-        lastName: createBookingDto.lastName,
-        phone: createBookingDto.phone,
-        email: createBookingDto.email,
-        location: createBookingDto.location,
-        eventDate: createBookingDto.eventDate ? new Date(createBookingDto.eventDate) : null,
-        duration: new Date(createBookingDto.duration),
-        budget: createBookingDto.budget,
-        eventType: createBookingDto.eventType,
-        services: createBookingDto.services || [],
-        message: createBookingDto.message,
-      },
-    });
-  }
+  async findAllBookings(page?: number, limit?: number): Promise<{
+    bookings: Booking[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  }> {
+    // Validate and set defaults in service
+    const validPage = Math.max(1, page || 1);
+    const validLimit = Math.min(Math.max(1, limit || 10), 100); // Max 100 items per page
+    
+    const skip = (validPage - 1) * validLimit;
+    
+    const [bookings, total] = await Promise.all([
+      this.prisma.booking.findMany({
+        skip,
+        take: validLimit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.booking.count(),
+    ]);
 
-  async findAllBookings(): Promise<Booking[]> {
-    return this.prisma.booking.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
+    const totalPages = Math.ceil(total / validLimit);
+
+    return {
+      bookings,
+      total,
+      page: validPage,
+      limit: validLimit,
+      totalPages,
+    };
   }
 
   async findBookingById(id: string): Promise<Booking> {

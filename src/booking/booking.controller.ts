@@ -1,6 +1,6 @@
 // src/booking/booking.controller.ts
-import { Controller, Post, Body, Get, Param, Patch } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { Controller, Post, Body, Get, Param, Patch, Query } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { BookingService } from './booking.service';
 
@@ -21,9 +21,17 @@ export class BookingController {
   }
 
   @Get('all')
-  @ApiOperation({ summary: 'Get all bookings' })
-  async getAllBookings() {
-    return this.bookingService.findAllBookings();
+  @ApiOperation({ summary: 'Get all bookings with pagination' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page (default: 10)' })
+  async getAllBookings(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : undefined;
+    const limitNum = limit ? parseInt(limit, 10) : undefined;
+    
+    return this.bookingService.findAllBookings(pageNum, limitNum);
   }
 
   @Get(':id')

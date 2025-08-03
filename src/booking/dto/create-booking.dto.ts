@@ -69,10 +69,15 @@ export class CreateBookingDto {
   eventDate?: string;
 
   @ApiProperty({
-    description: 'Selected time slot for the event (combines date + time)',
-    example: '2025-07-12T14:30:00.000Z'
+    description: 'Duration or time slot for the event',
+    example: '2 hours',
+    examples: {
+      duration: { value: '2 hours', description: 'Duration format' },
+      timeSlot: { value: '14:30-16:30', description: 'Time slot format' },
+      minutes: { value: '120 minutes', description: 'Minutes format' }
+    }
   })
-  @IsISO8601()
+  @IsString()
   @IsNotEmpty()
   duration: string;
 

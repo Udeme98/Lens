@@ -2,7 +2,8 @@ import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/commo
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
-import { Booking } from '@prisma/client';
+import { CreateContactUsDto } from './dto/create-contact-us.dto';
+import { Booking, ContactUs } from '@prisma/client';
 
 @Injectable()
 export class BookingService {
@@ -90,5 +91,63 @@ export class BookingService {
       where: { email },
       orderBy: { createdAt: 'desc' },
     });
+  }
+
+  // Contact Us Methods
+  async createContactUs(createContactUsDto: CreateContactUsDto): Promise<{ contactUs: ContactUs; contactId: string }> {
+    // Create contact us entry in database
+    const contactUs = await this.prisma.contactUs.create({
+      data: {
+        name: createContactUsDto.name,
+        phone: createContactUsDto.phone,
+        email: createContactUsDto.email,
+        message: createContactUsDto.message,
+      },
+    });
+
+    // Send notification email to app owner
+    await this.mailService.sendContactUsNotificationEmail(createContactUsDto);
+
+    return {
+      contactUs,
+      contactId: contactUs.id,
+    };
+  }
+
+  async findAllContactUs(page?: number, limit?: number): Promise<{
+    contacts: ContactUs[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  }> {
+    // Validate and set defaults in service
+    const validPage = Math.max(1, page || 1);
+    const validLimit = Math.min(Math.max(1, limit || 10), 100); // Max 100 items per page
+    
+    const skip = (validPage - 1) * validLimit;
+    
+    const [contacts, total] = await Promise.all([
+      this.prisma.contactUs.findMany({
+        skip,
+        take: validLimit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.contactUs.count(),
+    ]);
+
+    const totalPages = Math.ceil(total / validLimit);
+
+    return {
+      contacts,
+      total,
+      page: validPage,
+      limit: validLimit,
+      totalPages,
+    };
+  }
+
+  async getContactUsCount(): Promise<number> {
+    return this.prisma.contactUs.count();
   }
 }

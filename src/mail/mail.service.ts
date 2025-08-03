@@ -3,6 +3,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { CreateBookingDto } from '../booking/dto/create-booking.dto';
+import { CreateContactUsDto } from '../booking/dto/create-contact-us.dto';
 
 @Injectable()
 export class MailService {
@@ -47,6 +48,39 @@ export class MailService {
       // Changed the error message to be more generic, as it's no longer SendGrid specific
       throw new InternalServerErrorException(
         'Failed to send booking request. Please check email service credentials and configuration.'
+      );
+    }
+  }
+
+  async sendContactUsNotificationEmail(contactDetails: CreateContactUsDto): Promise<void> {
+    // Send notification to app owner
+    const recipient = this.configService.get<string>('RECIPIENT_EMAIL_2');
+
+    if (!recipient) {
+      throw new InternalServerErrorException('No recipient email configured for contact us notifications.');
+    }
+
+    try {
+      await this.mailerService.sendMail({
+        to: recipient,
+        // The 'from' address MUST be your Gmail email address configured in GMAIL_SENDER_EMAIL.
+        from: this.configService.get<string>('GMAIL_SENDER_EMAIL'),
+        replyTo: contactDetails.email,
+        subject: `New Contact Us Message from ${contactDetails.name}`,
+        template: 'contact-us', // Name of your Handlebars template file (without .hbs extension)
+        context: {
+          name: contactDetails.name,
+          email: contactDetails.email,
+          phone: contactDetails.phone || 'Not provided',
+          message: contactDetails.message,
+        },
+      });
+      console.log('Contact us notification email sent successfully.');
+    } catch (error) {
+      console.error('Failed to send contact us notification email:', error.response || error.message);
+
+      throw new InternalServerErrorException(
+        'Failed to send contact us notification. Please check email service credentials and configuration.'
       );
     }
   }

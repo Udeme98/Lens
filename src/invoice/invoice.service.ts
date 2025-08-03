@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
-import { Invoice, InvoiceStatus } from '@prisma/client';
+import { Invoice } from '@prisma/client';
 
 @Injectable()
 export class InvoiceService {
@@ -13,7 +13,6 @@ export class InvoiceService {
       data: {
         ...createInvoiceDto,
         date: new Date(createInvoiceDto.date),
-        status: InvoiceStatus.DRAFT,
       },
     });
   }
@@ -55,13 +54,6 @@ export class InvoiceService {
     return this.prisma.invoice.count();
   }
 
-  async findByStatus(status: InvoiceStatus): Promise<Invoice[]> {
-    return this.prisma.invoice.findMany({
-      where: { status },
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-
   async findByEmail(email: string): Promise<Invoice[]> {
     return this.prisma.invoice.findMany({
       where: { email },
@@ -69,27 +61,11 @@ export class InvoiceService {
     });
   }
 
-  async updateStatus(id: string, status: InvoiceStatus): Promise<Invoice> {
-    await this.findOne(id); // Check if exists
-    return this.prisma.invoice.update({
-      where: { id },
-      data: { status },
-    });
-  }
-
   async getStatistics() {
-    const [total, draft, sent, paid, cancelled, overdue] = await Promise.all([
-      this.prisma.invoice.count(),
-      this.prisma.invoice.count({ where: { status: InvoiceStatus.DRAFT } }),
-      this.prisma.invoice.count({ where: { status: InvoiceStatus.SENT } }),
-      this.prisma.invoice.count({ where: { status: InvoiceStatus.PAID } }),
-      this.prisma.invoice.count({ where: { status: InvoiceStatus.CANCELLED } }),
-      this.prisma.invoice.count({ where: { status: InvoiceStatus.OVERDUE } }),
-    ]);
-
+    const total = await this.prisma.invoice.count();
+    
     return {
       total,
-      byStatus: { draft, sent, paid, cancelled, overdue },
     };
   }
 }

@@ -25,20 +25,19 @@ export class MailService {
         // The 'from' address MUST be your Gmail email address configured in GMAIL_SENDER_EMAIL.
         from: this.configService.get<string>('GMAIL_SENDER_EMAIL'),
         replyTo: bookingDetails.email,
-        subject: `New Photo Booking Request from ${bookingDetails.name}`,
+        subject: `New Photo Booking Request from ${bookingDetails.firstName} ${bookingDetails.lastName}`,
         template: 'booking-request', // Name of your Handlebars template file (without .hbs extension)
         context: {
-          name: bookingDetails.name,
+          name: `${bookingDetails.firstName} ${bookingDetails.lastName}`,
           email: bookingDetails.email,
           phone: bookingDetails.phone || 'N/A',
           location: bookingDetails.location,
-          proposedDate: bookingDetails.proposedDate,
+          eventDate: bookingDetails.eventDate,
           budget: bookingDetails.budget || 'Not specified',
-          hearAbout: bookingDetails.hearAbout || 'Not specified',
+          message: bookingDetails.message || 'No additional message',
           eventType: bookingDetails.eventType.map(type =>
             type.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) // Format event types nicely
           ).join(', '), // Join array for display
-          message: bookingDetails.message,
         },
       });
       console.log('Booking request email sent successfully.');

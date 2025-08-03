@@ -12,7 +12,6 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { InvoiceService } from './invoice.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
-import { InvoiceStatus } from '@prisma/client';
 
 @ApiTags('Invoices')
 @Controller('invoices')
@@ -27,11 +26,7 @@ export class InvoiceController {
 
   @Get()
   @ApiOperation({ summary: 'Get all invoices' })
-  async findAll(
-    @Query('status') status?: InvoiceStatus,
-    @Query('email') email?: string,
-  ) {
-    if (status) return this.invoiceService.findByStatus(status);
+  async findAll(@Query('email') email?: string) {
     if (email) return this.invoiceService.findByEmail(email);
     return this.invoiceService.findAll();
   }
@@ -61,15 +56,6 @@ export class InvoiceController {
     @Body() updateInvoiceDto: UpdateInvoiceDto,
   ) {
     return this.invoiceService.update(id, updateInvoiceDto);
-  }
-
-  @Patch(':id/status')
-  @ApiOperation({ summary: 'Update invoice status' })
-  async updateStatus(
-    @Param('id') id: string,
-    @Body('status') status: InvoiceStatus,
-  ) {
-    return this.invoiceService.updateStatus(id, status);
   }
 
   @Delete(':id')

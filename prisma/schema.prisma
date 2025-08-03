@@ -15,64 +15,51 @@ datasource db {
 
 model Booking {
   id           String   @id @default(cuid())
-  name         String
+  firstName    String
+  lastName     String
   phone        String?
   email        String
   location     String
-  proposedDate String
+  eventDate    DateTime?
+  duration     DateTime
   budget       String?
-  hearAbout    String?
   eventType    String[]
+  services     String[]  @default([])
   message      String
-  status       BookingStatus @default(PENDING)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   @@map("bookings")
 }
 
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  COMPLETED
-}
-
-model User {
+// add a new table for contact us with name, email, message, and createdAt fields
+model ContactUs {
   id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  role      UserRole @default(CLIENT)
+  name      String
+  phone     String?
+  email     String
+  message   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users")
+  @@map("contact_us")
 }
 
-enum UserRole {
-  ADMIN
-  CLIENT
-}
-
-model Photo {
-  id          String      @id @default(cuid())
-  filename    String
-  originalName String
-  mimeType    String
-  size        Int
-  url         String
-  category    PhotoCategory @default(GALLERY)
-  isPublic    Boolean     @default(true)
-  uploadedAt  DateTime    @default(now())
-
-  @@map("photos")
-}
-
-enum PhotoCategory {
-  GALLERY
-  PORTFOLIO
-  TESTIMONIAL
-}
+// add a new table for contract with the following fields: id, name, email, location, eventDate, duration, budget, eventType, message, createdAt
+model Contract {
+  id          String   @id @default(cuid())
+  fullName    String
+  email       String
+  location    String
+  eventDate   DateTime?
+  duration    DateTime
+  total_fee   Float?
+  hourly_rate Float?
+  retainer_price Float?
+  due_price Float?
+  eventType   String[]
+  services    String[]
+  message     String
+  createdAt   DateTime @default(now())
+}    
 
 model Invoice {
   id        String   @id @default(cuid())
@@ -82,17 +69,8 @@ model Invoice {
   duration  String
   date      DateTime
   location  String
-  status    InvoiceStatus @default(DRAFT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("invoices")
-}
-
-enum InvoiceStatus {
-  DRAFT
-  SENT
-  PAID
-  CANCELLED
-  OVERDUE
 }

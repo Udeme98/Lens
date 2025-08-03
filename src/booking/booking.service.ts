@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/commo
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
-import { Booking, BookingStatus } from '@prisma/client';
+import { Booking } from '@prisma/client';
 
 @Injectable()
 export class BookingService {
@@ -16,8 +16,17 @@ export class BookingService {
     // Create booking in database
     const booking = await this.prisma.booking.create({
       data: {
-        ...createBookingDto,
-        status: BookingStatus.PENDING,
+        firstName: createBookingDto.firstName,
+        lastName: createBookingDto.lastName,
+        phone: createBookingDto.phone,
+        email: createBookingDto.email,
+        location: createBookingDto.location,
+        eventDate: createBookingDto.eventDate ? new Date(createBookingDto.eventDate) : null,
+        duration: new Date(createBookingDto.duration),
+        budget: createBookingDto.budget,
+        eventType: createBookingDto.eventType,
+        services: createBookingDto.services || [],
+        message: createBookingDto.message,
       },
     });
 
@@ -33,8 +42,17 @@ export class BookingService {
   async createBooking(createBookingDto: CreateBookingDto): Promise<Booking> {
     return this.prisma.booking.create({
       data: {
-        ...createBookingDto,
-        status: BookingStatus.PENDING,
+        firstName: createBookingDto.firstName,
+        lastName: createBookingDto.lastName,
+        phone: createBookingDto.phone,
+        email: createBookingDto.email,
+        location: createBookingDto.location,
+        eventDate: createBookingDto.eventDate ? new Date(createBookingDto.eventDate) : null,
+        duration: new Date(createBookingDto.duration),
+        budget: createBookingDto.budget,
+        eventType: createBookingDto.eventType,
+        services: createBookingDto.services || [],
+        message: createBookingDto.message,
       },
     });
   }
@@ -53,14 +71,6 @@ export class BookingService {
     return booking;
   }
 
-  async updateBookingStatus(id: string, status: BookingStatus): Promise<Booking> {
-    await this.findBookingById(id); // Check if exists
-    return this.prisma.booking.update({
-      where: { id },
-      data: { status },
-    });
-  }
-
   async deleteBooking(id: string): Promise<Booking> {
     await this.findBookingById(id); // Check if exists
     return this.prisma.booking.delete({ where: { id } });
@@ -69,13 +79,6 @@ export class BookingService {
   async findBookingsByEmail(email: string): Promise<Booking[]> {
     return this.prisma.booking.findMany({
       where: { email },
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-
-  async findBookingsByStatus(status: BookingStatus): Promise<Booking[]> {
-    return this.prisma.booking.findMany({
-      where: { status },
       orderBy: { createdAt: 'desc' },
     });
   }

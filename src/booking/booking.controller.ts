@@ -3,7 +3,6 @@ import { Controller, Post, Body, Get, Param, Patch } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { BookingService } from './booking.service';
-import { BookingStatus } from '@prisma/client';
 
 @ApiTags('Bookings')
 @Controller('booking')
@@ -31,14 +30,5 @@ export class BookingController {
   @ApiOperation({ summary: 'Get booking by ID' })
   async getBookingById(@Param('id') id: string) {
     return this.bookingService.findBookingById(id);
-  }
-
-  @Patch(':id/status')
-  @ApiOperation({ summary: 'Update booking status' })
-  async updateBookingStatus(
-    @Param('id') id: string,
-    @Body('status') status: BookingStatus
-  ) {
-    return this.bookingService.updateBookingStatus(id, status);
   }
 }

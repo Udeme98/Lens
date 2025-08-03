@@ -5,20 +5,31 @@ import {
   IsArray, 
   IsNotEmpty, 
   ArrayMinSize, 
-  IsOptional 
+  IsOptional,
+  IsDateString,
+  IsISO8601
 } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateBookingDto {
   @ApiProperty({
-    description: 'Full name of the client',
-    example: 'John Doe'
+    description: 'First name of the client',
+    example: 'John'
   })
   @IsString()
   @IsNotEmpty()
   @Transform(({ value }) => value.trim())
-  name: string;
+  firstName: string;
+
+  @ApiProperty({
+    description: 'Last name of the client',
+    example: 'Doe'
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Transform(({ value }) => value.trim())
+  lastName: string;
 
   @ApiProperty({
     description: 'Phone number of the client',
@@ -28,7 +39,7 @@ export class CreateBookingDto {
   @IsString()
   @IsOptional()
   @Transform(({ value }) => value ? value.trim() : value)
-  phone: string;
+  phone?: string;
 
   @ApiProperty({
     description: 'Email address of the client',
@@ -49,13 +60,21 @@ export class CreateBookingDto {
   location: string;
 
   @ApiProperty({
-    description: 'Proposed date for the event',
-    example: '2025-08-15'
+    description: 'Selected event date from calendar',
+    example: '2025-07-12',
+    required: false
   })
-  @IsString()
-  @IsNotEmpty()
   @IsOptional()
-  proposedDate: string;
+  @IsDateString()
+  eventDate?: string;
+
+  @ApiProperty({
+    description: 'Selected time slot for the event (combines date + time)',
+    example: '2025-07-12T14:30:00.000Z'
+  })
+  @IsISO8601()
+  @IsNotEmpty()
+  duration: string;
 
   @ApiProperty({
     description: 'Budget for the photography service',
@@ -68,18 +87,8 @@ export class CreateBookingDto {
   budget?: string;
 
   @ApiProperty({
-    description: 'How the client heard about the service',
-    example: 'Instagram',
-    required: false
-  })
-  @IsString()
-  @IsOptional()
-  @Transform(({ value }) => value ? value.trim() : value)
-  hearAbout?: string;
-
-  @ApiProperty({
-    description: 'Types of photography events',
-    example: ['wedding', 'portrait'],
+    description: 'Selected photography event types',
+    example: ['wedding-photography', 'portrait-session', 'family-photos'],
     type: [String]
   })
   @IsArray()
@@ -88,6 +97,18 @@ export class CreateBookingDto {
   @IsNotEmpty({ each: true })
   @Transform(({ value }) => Array.isArray(value) ? value.map(item => item.trim()) : value)
   eventType: string[];
+
+  @ApiProperty({
+    description: 'Selected photography services',
+    example: ['photo-editing', 'digital-gallery', 'printed-photos'],
+    type: [String],
+    required: false
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  @Transform(({ value }) => Array.isArray(value) ? value.map(item => item.trim()) : value)
+  services?: string[];
 
   @ApiProperty({
     description: 'Additional message or details from the client',

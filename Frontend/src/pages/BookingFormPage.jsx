@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer"; // Assuming Footer is the same
 import { useParams, useNavigate } from "react-router-dom";
+import { Clock } from "lucide-react";
 
 const BookingFormPage = () => {
   // State for the form data
@@ -55,7 +56,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/group.png",
       title: "Photography (Small Events)",
       description: "0-2 hours coverage. Perfect for intimate gatherings.",
-      price: "From $150",
+      price: "150",
       features: ["Up to 2 hours", "1 Photographer", "Digital gallery"],
     },
     {
@@ -63,7 +64,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/lady.png",
       title: "Mini Session",
       description: "20-30 minutes, 1 outfit. Ideal for quick updates.",
-      price: "From $80",
+      price: "80",
       features: ["20-30 mins", "1 outfit", "5 edited images"],
     },
     {
@@ -71,7 +72,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/ladies.png",
       title: "Large Group Session",
       description: "2-3 hours coverage. For family reunions or large parties.",
-      price: "From $300",
+      price: "300",
       features: ["2-3 hours", "1-2 Photographers", "Extensive digital gallery"],
     },
     {
@@ -79,7 +80,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/family.png",
       title: "Family/Group Session",
       description: "1-2 hours coverage. Perfect for family portraits.",
-      price: "From $200",
+      price: "200",
       features: ["1-2 hours", "1 Photographer", "Digital gallery"],
     },
     {
@@ -99,7 +100,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/girl.png",
       title: "Kids Session",
       description: "Playful and memorable shots of your little ones.",
-      price: "From $120",
+      price: "120",
       features: ["1 hour", "Props included", "Fun environment"],
     },
     {
@@ -107,7 +108,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/white.png",
       title: "Maternity Shoots",
       description: "Capturing the beauty of motherhood.",
-      price: "From $180",
+      price: "180",
       features: ["1-2 outfits", "Partner included", "Styling guide"],
     },
     {
@@ -115,7 +116,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/blue.png",
       title: "Corporate Headshots",
       description: "Professional portraits for your business needs.",
-      price: "From $100",
+      price: "100",
       features: ["30 mins", "Online proofing", "Retouched images"],
     },
     {
@@ -143,7 +144,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/sit.png",
       title: "Individual Session",
       description: "Personalized shoots for unique expressions.",
-      price: "From $150",
+      price: "150",
       features: ["1-2 hours", "Multiple outfits", "Concept development"],
     },
     {
@@ -151,7 +152,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/guy.png",
       title: "Model/Headshot Session",
       description: "Professional shots for portfolios and auditions.",
-      price: "From $130",
+      price: "130",
       features: ["2-3 looks", "Retouching included", "Online gallery"],
     },
     {
@@ -394,7 +395,7 @@ const BookingFormPage = () => {
           <div className="p-6 border-b border-gray-700">
             <div className="flex items-center gap-6 mb-4 text-gray-300 text-sm">
               <div className="flex items-center gap-2">
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -407,11 +408,12 @@ const BookingFormPage = () => {
                     strokeLinejoin="round"
                     d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
-                </svg>
-                <span>{serviceDetails.duration}</span>
+                </svg> */}
+                <Clock className="w-[32px]" />
+                <span className="text-red-300">{serviceDetails.duration}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -425,7 +427,7 @@ const BookingFormPage = () => {
                     d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.104c1.807.342 3.417-.938 3.417-2.806V14.25A2.25 2.25 0 0 0 18 12.072a30.014 30.014 0 0 0 5.041 2.764c1.916.917 3.593-1.161 3.593-3.138V7.5a2.25 2.25 0 0 0-2.25-2.25h-5.846a2.25 2.25 0 0 0-2.062-1.35 60.01 60.01 0 0 0-1.897-.071H9.75V3.375c0-.621-.504-1.125-1.125-1.125h-3.75c-.621 0-1.125.504-1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125H3.375c-.621 0-1.125.504-1.125 1.125v3.75c0 .621.504 1.125 1.125 1.125h1.5a2.25 2.25 0 0 0 2.062 1.35A60.01 60.01 0 0 0 7.25 20.824c.343 1.968-1.07 3.636-3.003 3.568H2.25Z"
                     clipRule="evenodd"
                   />
-                </svg>
+                </svg> */}
                 <span>{serviceDetails.price}</span>
               </div>
             </div>

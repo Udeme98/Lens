@@ -13,6 +13,7 @@ import { InvoiceService } from './invoice.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { CreateContractDto } from './dto/create-contract.dto';
+import { Public } from '../auth/decorators/public.decorator';
 
 @ApiTags('Invoices')
 @Controller('invoices')
@@ -27,8 +28,7 @@ export class InvoiceController {
 
   @Get()
   @ApiOperation({ summary: 'Get all invoices' })
-  async findAll(@Query('email') email?: string) {
-    if (email) return this.invoiceService.findByEmail(email);
+  async findAll() {
     return this.invoiceService.findAll();
   }
 
@@ -66,6 +66,7 @@ export class InvoiceController {
   }
 
   // Contract Endpoints
+  @Public()
   @Post('contracts')
   @ApiOperation({ summary: 'Create contract and send to client' })
   async createContract(@Body() createContractDto: CreateContractDto) {

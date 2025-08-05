@@ -4,11 +4,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailService } from './mail.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PdfModule } from '../pdf/pdf.module';
 import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule,
+    PdfModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

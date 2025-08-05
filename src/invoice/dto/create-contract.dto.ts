@@ -1,6 +1,7 @@
 import { IsString, IsEmail, IsNotEmpty, IsOptional, IsArray, IsNumber, IsDateString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
+import { IsValidEmailDomain } from '../../common/validators/email-domain.validator';
 
 export class CreateContractDto {
   @ApiProperty({
@@ -16,7 +17,8 @@ export class CreateContractDto {
     description: 'Email address of the client',
     example: 'john.doe@example.com'
   })
-  @IsEmail()
+  @IsEmail({}, { message: 'Please enter a valid email address' })
+  @IsValidEmailDomain({ message: 'Email domain appears to have a typo' })
   @IsNotEmpty()
   @Transform(({ value }) => value.trim().toLowerCase())
   email: string;

@@ -4,12 +4,14 @@ import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { CreateContactUsDto } from './dto/create-contact-us.dto';
 import { BookingService } from './booking.service';
+import { Public } from '../auth/decorators/public.decorator';
 
 @ApiTags('Bookings')
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
+  @Public()
   @Post('submit')
   @ApiOperation({ summary: 'Submit booking request' })
   async submitBooking(@Body() createBookingDto: CreateBookingDto) {
@@ -42,6 +44,7 @@ export class BookingController {
   }
 
   // Contact Us Endpoints
+  @Public()
   @Post('contact-us')
   @ApiOperation({ summary: 'Submit contact us message' })
   async submitContactUs(@Body() createContactUsDto: CreateContactUsDto) {

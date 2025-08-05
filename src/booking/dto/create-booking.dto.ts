@@ -11,6 +11,7 @@ import {
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsValidEmailDomain } from '../../common/validators/email-domain.validator';
 
 export class CreateBookingDto {
   @ApiProperty({
@@ -45,9 +46,10 @@ export class CreateBookingDto {
     description: 'Email address of the client',
     example: 'john.doe@example.com'
   })
-  @IsEmail()
+  @IsEmail({}, { message: 'Please enter a valid email address' })
+  @IsValidEmailDomain({ message: 'Email domain appears to have a typo' })
   @IsNotEmpty()
-  @Transform(({ value }) => value.trim())
+  @Transform(({ value }) => value.trim().toLowerCase())
   email: string;
 
   @ApiProperty({

@@ -6,6 +6,11 @@ import BookingPage from "./pages/BookingPage";
 import BookingFormPage from "./pages/BookingFormPage";
 import BookingConfirmationPage from "./pages/BookingConfirmationPage";
 import BookingSuccessPage from "./pages/BookingSuccessPage";
+import DashboardContent from "./pages/dashboard/DashboardContent";
+import DashboardLayout from "./components/DashboardLayout";
+import InboxPage from "./pages/dashboard/InboxPage";
+import InvoicePage from "./pages/dashboard/InvoicePage";
+import ContractPage from "./pages/dashboard/ContractPage";
 import "./fonts.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -24,6 +29,14 @@ const App = () => {
           element={<BookingConfirmationPage />}
         />
         <Route path="/booking-success" element={<BookingSuccessPage />} />
+
+        {/* Dashboard routes using nested routing */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<DashboardContent />} />
+          <Route path="inbox" element={<InboxPage />} />
+          <Route path="invoice" element={<InvoicePage />} />
+          <Route path="contract" element={<ContractPage />} />
+        </Route>
       </Routes>
     </div>
   );

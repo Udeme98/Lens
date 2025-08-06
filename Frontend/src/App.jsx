@@ -11,6 +11,7 @@ import DashboardLayout from "./components/DashboardLayout";
 import InboxPage from "./pages/dashboard/InboxPage";
 import InvoicePage from "./pages/dashboard/InvoicePage";
 import ContractPage from "./pages/dashboard/ContractPage";
+import InvoiceFormPage from "./pages/dashboard/InvoiceFormPage";
 import "./fonts.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="inbox" element={<InboxPage />} />
           <Route path="invoice" element={<InvoicePage />} />
           <Route path="contract" element={<ContractPage />} />
+          <Route path="invoice-form" element={<InvoiceFormPage />} />
         </Route>
       </Routes>
     </div>

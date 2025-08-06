@@ -58,7 +58,7 @@ const ContractPage = () => {
 
       {/* Recent Invoices Table */}
       <div className="bg-zinc-900 rounded-xl p-6 shadow-md mb-8">
-        <h2 className="text-xl font-semibold mb-4">Recent Invoices</h2>
+        <h2 className="text-xl font-semibold mb-4">Recent Contracts</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>

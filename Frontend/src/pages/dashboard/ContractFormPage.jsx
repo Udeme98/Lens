@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const InvoiceFormPage = () => {
+const ContractFormPage = () => {
   const navigate = useNavigate();
 
-  // State to manage form data
+  // State to manage form data for the contract
   const [formData, setFormData] = useState({
     email: "",
     fullName: "",
     eventType: "",
-    amount: "",
+    servicesIncluded: "",
+    totalFee: "",
+    additionalHourlyPricing: "",
+    retainerPrice: "",
+    duePrice: "",
     duration: "",
     date: "",
     location: "",
@@ -27,15 +31,15 @@ const InvoiceFormPage = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
+    console.log("Contract Form Data Submitted:", formData);
     // You can add logic here to send data to an API or process it
-    // For now, let's navigate back to the invoice list after submission
-    navigate("/dashboard/invoice");
+    // For now, let's navigate back to the contract list after submission
+    navigate("/dashboard/contract"); // Assuming a /dashboard/contract route for the list
   };
 
-  // Function to handle navigation back to the invoice list
+  // Function to handle navigation back to the contract list
   const handleGoBack = () => {
-    navigate("/dashboard/invoice");
+    navigate("/dashboard/contract"); // Assuming a /dashboard/contract route for the list
   };
 
   return (
@@ -58,9 +62,9 @@ const InvoiceFormPage = () => {
           />
         </svg>
         <div>
-          <h1 className="text-3xl font-semibold">Invoice form</h1>
+          <h1 className="text-3xl font-semibold">Contract form</h1>
           <p className="text-zinc-400 mt-1">
-            Please enter invoice information below
+            Please enter client's information below
           </p>
         </div>
       </div>
@@ -143,19 +147,114 @@ const InvoiceFormPage = () => {
             </div>
           </div>
 
-          {/* Amount Field */}
+          {/* Services Included Field (Dropdown) */}
           <div className="mb-6">
             <label
-              htmlFor="amount"
+              htmlFor="servicesIncluded"
               className="block text-zinc-400 text-sm font-semibold mb-2 uppercase tracking-wide"
             >
-              Amount
+              Services Included
+            </label>
+            <div className="relative">
+              <select
+                id="servicesIncluded"
+                name="servicesIncluded"
+                value={formData.servicesIncluded}
+                onChange={handleChange}
+                className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg appearance-none focus:outline-none focus:border-zinc-500 text-white pr-10"
+                required
+              >
+                <option value="">Select</option>
+                <option value="Photography">Photography</option>
+                <option value="Videography">Videography</option>
+                <option value="Both">Both</option>
+                <option value="Other">Other</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-400">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Total Fee Field */}
+          <div className="mb-6">
+            <label
+              htmlFor="totalFee"
+              className="block text-zinc-400 text-sm font-semibold mb-2 uppercase tracking-wide"
+            >
+              Total Fee
             </label>
             <input
               type="number"
-              id="amount"
-              name="amount"
-              value={formData.amount}
+              id="totalFee"
+              name="totalFee"
+              value={formData.totalFee}
+              onChange={handleChange}
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:border-zinc-500 text-white"
+              placeholder="Please, enter an amount"
+              required
+            />
+          </div>
+
+          {/* Additional Hourly Pricing Field */}
+          <div className="mb-6">
+            <label
+              htmlFor="additionalHourlyPricing"
+              className="block text-zinc-400 text-sm font-semibold mb-2 uppercase tracking-wide"
+            >
+              Additional Hourly Pricing
+            </label>
+            <input
+              type="number"
+              id="additionalHourlyPricing"
+              name="additionalHourlyPricing"
+              value={formData.additionalHourlyPricing}
+              onChange={handleChange}
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:border-zinc-500 text-white"
+              placeholder="Please, enter an amount"
+              required
+            />
+          </div>
+
+          {/* Retainer Price Field */}
+          <div className="mb-6">
+            <label
+              htmlFor="retainerPrice"
+              className="block text-zinc-400 text-sm font-semibold mb-2 uppercase tracking-wide"
+            >
+              Retainer Price
+            </label>
+            <input
+              type="number"
+              id="retainerPrice"
+              name="retainerPrice"
+              value={formData.retainerPrice}
+              onChange={handleChange}
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:border-zinc-500 text-white"
+              placeholder="Please, enter an amount"
+              required
+            />
+          </div>
+
+          {/* Due Price Field */}
+          <div className="mb-6">
+            <label
+              htmlFor="duePrice"
+              className="block text-zinc-400 text-sm font-semibold mb-2 uppercase tracking-wide"
+            >
+              Due Price
+            </label>
+            <input
+              type="number"
+              id="duePrice"
+              name="duePrice"
+              value={formData.duePrice}
               onChange={handleChange}
               className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:border-zinc-500 text-white"
               placeholder="Please, enter an amount"
@@ -198,7 +297,7 @@ const InvoiceFormPage = () => {
               name="date"
               value={formData.date}
               onChange={handleChange}
-              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:border-zinc-500 text-white"
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:border-zinc-500 text-white "
               required
             />
           </div>
@@ -261,4 +360,4 @@ const InvoiceFormPage = () => {
   );
 };
 
-export default InvoiceFormPage;
+export default ContractFormPage;

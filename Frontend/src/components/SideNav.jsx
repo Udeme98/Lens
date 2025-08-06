@@ -28,7 +28,8 @@ const SideNav = () => {
           {navItems.map((item) => {
             // Determine if the item should be highlighted
             const isActive =
-              item.path === "/dashboard/invoice"
+              item.path === "/dashboard/invoice" ||
+              item.path === "/dashboard/contract"
                 ? location.pathname.startsWith(item.path) // For Invoice, check if path starts with /dashboard/invoice
                 : location.pathname === item.path; // For others, exact match
 

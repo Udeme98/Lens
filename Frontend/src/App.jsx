@@ -13,6 +13,7 @@ import InvoicePage from "./pages/dashboard/InvoicePage";
 import ContractPage from "./pages/dashboard/ContractPage";
 import InvoiceFormPage from "./pages/dashboard/InvoiceFormPage";
 import ContractFormPage from "./pages/dashboard/ContractFormPage";
+import BookingMessage from "./pages/dashboard/BookingMessage";
 import "./fonts.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="contract" element={<ContractPage />} />
           <Route path="invoice-form" element={<InvoiceFormPage />} />
           <Route path="contract-form" element={<ContractFormPage />} />
+          <Route path="booking-message" element={<BookingMessage />} />
         </Route>
       </Routes>
     </div>

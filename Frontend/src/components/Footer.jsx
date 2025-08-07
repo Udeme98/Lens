@@ -1,4 +1,9 @@
+import { LogIn } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer className="px-8 py-8 bg-[#262627]">
       <div className="max-w-7xl mx-auto">
@@ -25,6 +30,10 @@ const Footer = () => {
           </a>
         </div>
         <div className="text-right">
+          <LogIn
+            className="text-white cursor-pointer"
+            onClick={() => navigate("login-page")}
+          />
           <p className="text-sm font-semibold text-white">
             © 2098 LENS BY DAMIANO
           </p>

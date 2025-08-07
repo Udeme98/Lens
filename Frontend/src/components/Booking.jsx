@@ -7,7 +7,7 @@ const Booking = () => {
       <div className="max-w-7xl mx-auto">
         <div className="p-8">
           <Link to="/booking-page">
-            <button className="w-[300px] h-[100px] bg-[#F0EBE0] rounded-[18px]  hover:opacity-90 text-black font-medium rounded-md transition-colors underline">
+            <button className="w-[300px] h-[80px] bg-[#F0EBE0] rounded-[18px]  hover:opacity-90 text-black font-medium rounded-md transition-colors underline">
               Book A Session With Us Now
             </button>
           </Link>

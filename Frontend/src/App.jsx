@@ -14,6 +14,9 @@ import ContractPage from "./pages/dashboard/ContractPage";
 import InvoiceFormPage from "./pages/dashboard/InvoiceFormPage";
 import ContractFormPage from "./pages/dashboard/ContractFormPage";
 import BookingMessage from "./pages/dashboard/BookingMessage";
+import LoginPage from "./pages/LoginPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import "./fonts.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -32,6 +35,9 @@ const App = () => {
           element={<BookingConfirmationPage />}
         />
         <Route path="/booking-success" element={<BookingSuccessPage />} />
+        <Route path="/login-page" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         {/* Dashboard routes using nested routing */}
         <Route path="/dashboard" element={<DashboardLayout />}>

@@ -26,7 +26,7 @@ const Footer = () => {
         </div>
         <div className="text-right">
           <p className="text-sm font-semibold text-white">
-            © 2098 LENS BY DAMIANO
+            © 2024 LENS BY DAMIANO
           </p>
         </div>
       </div>

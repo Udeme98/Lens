@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer"; // Assuming Footer is the same
 import { useParams, useNavigate } from "react-router-dom";
+import { Clock } from "lucide-react";
 
 const BookingFormPage = () => {
   // State for the form data
@@ -13,7 +14,40 @@ const BookingFormPage = () => {
     message: "",
     selectedDate: "",
     selectedTime: "",
+    location: "",
+    budget: "",
+    hearAbout: "",
+    eventType: [],
   });
+
+  // State for animations
+  const [animatedElements, setAnimatedElements] = useState(new Set());
+  const formRefs = useRef({});
+
+  // Intersection Observer for animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const elementId = entry.target.dataset.animateId;
+            setAnimatedElements((prev) => new Set([...prev, elementId]));
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    // Observe all form elements
+    Object.values(formRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Example data for the specific service being booked (you'd pass this via props/route params)
   const allServices = [
@@ -22,7 +56,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/group.png",
       title: "Photography (Small Events)",
       description: "0-2 hours coverage. Perfect for intimate gatherings.",
-      price: "From $150",
+      price: "150",
       features: ["Up to 2 hours", "1 Photographer", "Digital gallery"],
     },
     {
@@ -30,7 +64,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/lady.png",
       title: "Mini Session",
       description: "20-30 minutes, 1 outfit. Ideal for quick updates.",
-      price: "From $80",
+      price: "80",
       features: ["20-30 mins", "1 outfit", "5 edited images"],
     },
     {
@@ -38,7 +72,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/ladies.png",
       title: "Large Group Session",
       description: "2-3 hours coverage. For family reunions or large parties.",
-      price: "From $300",
+      price: "300",
       features: ["2-3 hours", "1-2 Photographers", "Extensive digital gallery"],
     },
     {
@@ -46,7 +80,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/family.png",
       title: "Family/Group Session",
       description: "1-2 hours coverage. Perfect for family portraits.",
-      price: "From $200",
+      price: "200",
       features: ["1-2 hours", "1 Photographer", "Digital gallery"],
     },
     {
@@ -66,7 +100,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/girl.png",
       title: "Kids Session",
       description: "Playful and memorable shots of your little ones.",
-      price: "From $120",
+      price: "120",
       features: ["1 hour", "Props included", "Fun environment"],
     },
     {
@@ -74,7 +108,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/white.png",
       title: "Maternity Shoots",
       description: "Capturing the beauty of motherhood.",
-      price: "From $180",
+      price: "180",
       features: ["1-2 outfits", "Partner included", "Styling guide"],
     },
     {
@@ -82,7 +116,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/blue.png",
       title: "Corporate Headshots",
       description: "Professional portraits for your business needs.",
-      price: "From $100",
+      price: "100",
       features: ["30 mins", "Online proofing", "Retouched images"],
     },
     {
@@ -110,7 +144,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/sit.png",
       title: "Individual Session",
       description: "Personalized shoots for unique expressions.",
-      price: "From $150",
+      price: "150",
       features: ["1-2 hours", "Multiple outfits", "Concept development"],
     },
     {
@@ -118,7 +152,7 @@ const BookingFormPage = () => {
       imageSrc: "/images/guy.png",
       title: "Model/Headshot Session",
       description: "Professional shots for portfolios and auditions.",
-      price: "From $130",
+      price: "130",
       features: ["2-3 looks", "Retouching included", "Online gallery"],
     },
     {
@@ -156,8 +190,21 @@ const BookingFormPage = () => {
 
   // Handle form input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox") {
+      setFormData((prev) => {
+        const updatedEventTypes = checked
+          ? [...prev.eventType, value]
+          : prev.eventType.filter((event) => event !== value);
+
+        return { ...prev, eventType: updatedEventTypes };
+      });
+    } else if (type === "radio") {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   // Handle date selection
@@ -236,23 +283,6 @@ const BookingFormPage = () => {
   };
 
   // Handle form submission
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Booking Form Submitted:", formData);
-  //   // Here you would typically send data to a backend or confirmation page
-  //   alert("Booking form submitted! (Check console for data)");
-  //   // Optionally reset form
-  //   setFormData({
-  //     firstName: "",
-  //     lastName: "",
-  //     phone: "",
-  //     email: "",
-  //     message: "",
-  //     selectedDate: "",
-  //     selectedTime: "",
-  //   });
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -293,8 +323,32 @@ const BookingFormPage = () => {
     );
   };
 
+  // Animation helper function
+  const getAnimationClass = (elementId) => {
+    return animatedElements.has(elementId)
+      ? "animate-fade-in-up"
+      : "opacity-0 translate-y-8";
+  };
+
   return (
     <div className="min-h-screen bg-[#262627] text-white font-sans">
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+      `}</style>
+
       {/* Header Placeholder */}
       <Header />
 
@@ -321,27 +375,27 @@ const BookingFormPage = () => {
             <span className="text-sm">Back to Services</span>
           </button>
         </div>
-        <div className="max-w-4xl mx-auto bg-[#262627] rounded-lg shadow-xl overflow-hidden">
-          {/* Service Banner Section */}
-          <div className="relative">
-            <img
-              src={serviceDetails.imageSrc}
-              alt={serviceDetails.title}
-              className="w-[1350px] max-h-[500px]"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-6">
-              <div className="text-white">
-                <h2 className="text-3xl font-bold">{serviceDetails.title}</h2>
-                <p className="text-lg">{serviceDetails.description}</p>
-              </div>
+        <div className="relative w-[80%] max-h-500px] mx-auto">
+          <img
+            src={serviceDetails.imageSrc}
+            alt={serviceDetails.title}
+            className="w-full max-h-[500px] object-cover object-[0_20%] rounded-md"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-6">
+            <div className="text-white">
+              <h2 className="text-3xl font-bold">{serviceDetails.title}</h2>
+              <p className="text-lg">{serviceDetails.description}</p>
             </div>
           </div>
+        </div>
+        <div className="max-w-4xl mx-auto bg-[#262627] rounded-lg shadow-xl overflow-hidden">
+          {/* Service Banner Section */}
 
           {/* Booking Details */}
           <div className="p-6 border-b border-gray-700">
             <div className="flex items-center gap-6 mb-4 text-gray-300 text-sm">
               <div className="flex items-center gap-2">
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -354,11 +408,12 @@ const BookingFormPage = () => {
                     strokeLinejoin="round"
                     d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
-                </svg>
-                <span>{serviceDetails.duration}</span>
+                </svg> */}
+                <Clock className="w-[32px]" />
+                <span className="text-red-300">{serviceDetails.duration}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -372,7 +427,7 @@ const BookingFormPage = () => {
                     d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.104c1.807.342 3.417-.938 3.417-2.806V14.25A2.25 2.25 0 0 0 18 12.072a30.014 30.014 0 0 0 5.041 2.764c1.916.917 3.593-1.161 3.593-3.138V7.5a2.25 2.25 0 0 0-2.25-2.25h-5.846a2.25 2.25 0 0 0-2.062-1.35 60.01 60.01 0 0 0-1.897-.071H9.75V3.375c0-.621-.504-1.125-1.125-1.125h-3.75c-.621 0-1.125.504-1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125H3.375c-.621 0-1.125.504-1.125 1.125v3.75c0 .621.504 1.125 1.125 1.125h1.5a2.25 2.25 0 0 0 2.062 1.35A60.01 60.01 0 0 0 7.25 20.824c.343 1.968-1.07 3.636-3.003 3.568H2.25Z"
                     clipRule="evenodd"
                   />
-                </svg>
+                </svg> */}
                 <span>{serviceDetails.price}</span>
               </div>
             </div>
@@ -523,7 +578,13 @@ const BookingFormPage = () => {
               Please enter your information below
             </h3>
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
+              <div
+                ref={(el) => (formRefs.current.firstName = el)}
+                data-animate-id="firstName"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "firstName"
+                )}`}
+              >
                 <label
                   htmlFor="firstName"
                   className="block text-sm font-medium mb-2"
@@ -541,7 +602,13 @@ const BookingFormPage = () => {
                 />
               </div>
 
-              <div>
+              <div
+                ref={(el) => (formRefs.current.lastName = el)}
+                data-animate-id="lastName"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "lastName"
+                )}`}
+              >
                 <label
                   htmlFor="lastName"
                   className="block text-sm font-medium mb-2"
@@ -559,7 +626,13 @@ const BookingFormPage = () => {
                 />
               </div>
 
-              <div>
+              <div
+                ref={(el) => (formRefs.current.phone = el)}
+                data-animate-id="phone"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "phone"
+                )}`}
+              >
                 <label
                   htmlFor="phone"
                   className="block text-sm font-medium mb-2"
@@ -578,7 +651,13 @@ const BookingFormPage = () => {
                 />
               </div>
 
-              <div>
+              <div
+                ref={(el) => (formRefs.current.email = el)}
+                data-animate-id="email"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "email"
+                )}`}
+              >
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium mb-2"
@@ -596,7 +675,114 @@ const BookingFormPage = () => {
                 />
               </div>
 
-              <div>
+              <div
+                ref={(el) => (formRefs.current.location = el)}
+                data-animate-id="location"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "location"
+                )}`}
+              >
+                <label className="block text-sm font-medium mb-2">
+                  LOCATION
+                </label>
+                <select
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-600 rounded-md bg-[#1A1A1A] text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">Where will the event take place?</option>
+                  <option value="local">Local</option>
+                  <option value="national">National</option>
+                  <option value="international">International</option>
+                </select>
+              </div>
+
+              <div
+                ref={(el) => (formRefs.current.budget = el)}
+                data-animate-id="budget"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "budget"
+                )}`}
+              >
+                <label className="block text-sm font-medium mb-2">
+                  DO YOU HAVE AN APPROX. BUDGET?
+                </label>
+                <textarea
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleChange}
+                  rows="3"
+                  placeholder="Kindly include your budget"
+                  className="w-full px-4 py-3 border border-gray-600 rounded-md resize-none bg-[#1A1A1A] text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div
+                ref={(el) => (formRefs.current.hearAbout = el)}
+                data-animate-id="hearAbout"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "hearAbout"
+                )}`}
+              >
+                <label className="block text-sm font-medium mb-3">
+                  How did you hear about us?
+                </label>
+                <div className="flex flex-wrap gap-6">
+                  {["instagram", "referral", "others"].map((source) => (
+                    <label key={source} className="flex items-center">
+                      <input
+                        type="radio"
+                        name="hearAbout"
+                        value={source}
+                        checked={formData.hearAbout === source}
+                        onChange={handleChange}
+                        className="mr-2 bg-[#1A1A1A]"
+                      />
+                      {source.charAt(0).toUpperCase() + source.slice(1)}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                ref={(el) => (formRefs.current.eventType = el)}
+                data-animate-id="eventType"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "eventType"
+                )}`}
+              >
+                <label className="block text-sm font-medium mb-3">
+                  Event session
+                </label>
+                <div className="flex flex-wrap gap-4">
+                  {["weddings", "portraits", "birthdays", "outdoor-events"].map(
+                    (event) => (
+                      <label key={event} className="flex items-center w-1/2">
+                        <input
+                          type="checkbox"
+                          name="eventType"
+                          value={event}
+                          checked={formData.eventType.includes(event)}
+                          onChange={handleChange}
+                          className="mr-2 bg-[#1A1A1A]"
+                        />
+                        {event
+                          .replace("-", " ")
+                          .replace(/\b\w/g, (l) => l.toUpperCase())}
+                      </label>
+                    )
+                  )}
+                </div>
+              </div>
+
+              <div
+                ref={(el) => (formRefs.current.message = el)}
+                data-animate-id="message"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "message"
+                )}`}
+              >
                 <label
                   htmlFor="message"
                   className="block text-sm font-medium mb-2"
@@ -614,13 +800,21 @@ const BookingFormPage = () => {
                 ></textarea>
               </div>
 
-              <div className="pt-4 flex justify-center">
-                <button
-                  type="submit"
-                  className="w-[400px] bg-[#1a1a1a] text-black font-semibold py-[8px] px-8 rounded-[30px] transition-colors text-white"
-                >
-                  CONTINUE
-                </button>
+              <div
+                ref={(el) => (formRefs.current.submit = el)}
+                data-animate-id="submit"
+                className={`transition-all duration-700 ${getAnimationClass(
+                  "submit"
+                )}`}
+              >
+                <div className="pt-4 flex justify-center">
+                  <button
+                    type="submit"
+                    className="w-[400px] bg-[#1a1a1a] text-black font-semibold py-[8px] px-8 rounded-[30px] transition-colors text-white"
+                  >
+                    CONTINUE
+                  </button>
+                </div>
               </div>
             </form>
           </div>

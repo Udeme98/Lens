@@ -8,107 +8,46 @@ const ContactUs = () => {
     name: "",
     phone: "",
     email: "",
-    location: "",
-    proposedDate: "",
-    budget: "",
-    hearAbout: "",
-    eventType: [],
     message: "",
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      setFormData((prev) => {
-        const updatedEventTypes = checked
-          ? [...prev.eventType, value]
-          : prev.eventType.filter((event) => event !== value);
-
-        return { ...prev, eventType: updatedEventTypes };
-      });
-    } else if (type === "radio") {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Form Submitted:", formData);
-  //   // You can also reset form here if needed:
-  //   setFormData({
-  //     name: "",
-  //     phone: "",
-  //     email: "",
-  //     location: "",
-  //     proposedDate: "",
-  //     budget: "",
-  //     hearAbout: "",
-  //     eventType: [],
-  //     message: "",
-  //   });
-  // };
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('http://localhost:3011/booking/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert(data.message);
-    
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        location: "",
-        proposedDate: "",
-        budget: "",
-        hearAbout: "",
-        eventType: [],
-        message: "",
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3011/booking/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    } else {
-      alert(`Error: ${data.message || 'Something went wrong.'}`);
-    }
-  } catch (error) {
-    console.error('Network error or unexpected issue:', error);
-    alert('Failed to connect to the server. Please check your internet connection and try again.');
-  }
-};
 
-  const canadaCities = [
-    "Toronto",
-    "Vancouver",
-    "Montreal",
-    "Calgary",
-    "Ottawa",
-    "Edmonton",
-    "Quebec City",
-    "Winnipeg",
-    "Hamilton",
-    "Victoria",
-    "Halifax",
-    "Regina",
-    "Saskatoon",
-    "St. John's",
-    "Windsor",
-    "Mississauga",
-    "Brampton",
-    "Surrey",
-    "Guelph",
-    "Kelowna",
-  ];
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message);
+
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        alert(`Error: ${data.message || "Something went wrong."}`);
+      }
+    } catch (error) {
+      console.error("Network error or unexpected issue:", error);
+      alert(
+        "Failed to connect to the server. Please check your internet connection and try again."
+      );
+    }
+  };
 
   return (
     <div>
@@ -124,12 +63,6 @@ const handleSubmit = async (e) => {
                 alt="Camera lens - Book Your Experience With Us!"
                 className="w-full h-80 object-cover rounded-lg"
               />
-              {/* <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
-                <div className="text-center text-white">
-                  <h2 className="text-3xl font-bold mb-2">Book Your</h2>
-                  <h2 className="text-3xl font-bold">Experience With Us!</h2>
-                </div>
-              </div> */}
             </div>
 
             {/* Contact Info */}
@@ -155,7 +88,7 @@ const handleSubmit = async (e) => {
                   <div className="flex flex-col gap-4 w-full md:w-1/2">
                     <div className="flex items-center gap-2">
                       <img
-                        src="/images/facebook.png"
+                        src="/images/fb.png"
                         alt="facebook"
                         className="w-5 h-5"
                       />
@@ -164,7 +97,7 @@ const handleSubmit = async (e) => {
 
                     <div className="flex items-center gap-2">
                       <img
-                        src="/images/twitter.png"
+                        src="/images/x.png"
                         alt="twitter"
                         className="w-4 h-4"
                       />
@@ -176,7 +109,7 @@ const handleSubmit = async (e) => {
                   <div className="flex flex-col gap-4 w-full md:w-1/2">
                     <div className="flex items-center gap-2">
                       <img
-                        src="/images/instagram.png"
+                        src="/images/inta.png"
                         alt="instagram"
                         className="w-4 h-4"
                       />
@@ -185,7 +118,7 @@ const handleSubmit = async (e) => {
 
                     <div className="flex items-center gap-2">
                       <img
-                        src="/images/pinterest.png"
+                        src="/images/pin.png"
                         alt="pinterest"
                         className="w-4 h-4"
                       />
@@ -239,97 +172,6 @@ const handleSubmit = async (e) => {
                   placeholder="Enter a valid email address"
                   className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
                 />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  LOCATION
-                </label>
-                <select
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
-                >
-                  <option value="">Where will the event take place?</option>
-                  <option value="local">Local</option>
-                  <option value="national">National</option>
-                  <option value="international">International</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  PROPOSED DATE(S)*
-                </label>
-                <input
-                  type="date"
-                  name="proposedDate"
-                  value={formData.proposedDate}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md bg-[#262627]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  DO YOU HAVE AN APPROX. BUDGET?
-                </label>
-                <textarea
-                  name="budget"
-                  value={formData.budget}
-                  onChange={handleChange}
-                  rows="3"
-                  placeholder="Kindly include your budget"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md resize-none bg-[#262627]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-3">
-                  How did you hear about us?
-                </label>
-                <div className="flex flex-wrap gap-6">
-                  {["instagram", "referral", "others"].map((source) => (
-                    <label key={source} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="hearAbout"
-                        value={source}
-                        checked={formData.hearAbout === source}
-                        onChange={handleChange}
-                        className="mr-2 bg-[#262627]"
-                      />
-                      {source.charAt(0).toUpperCase() + source.slice(1)}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-3">
-                  Event session
-                </label>
-                <div className="flex flex-wrap gap-4">
-                  {["weddings", "portraits", "birthdays", "outdoor-events"].map(
-                    (event) => (
-                      <label key={event} className="flex items-center w-1/2">
-                        <input
-                          type="checkbox"
-                          name="eventType"
-                          value={event}
-                          checked={formData.eventType.includes(event)}
-                          onChange={handleChange}
-                          className="mr-2 bg-[#262627]"
-                        />
-                        {event
-                          .replace("-", " ")
-                          .replace(/\b\w/g, (l) => l.toUpperCase())}
-                      </label>
-                    )
-                  )}
-                </div>
               </div>
 
               <div>

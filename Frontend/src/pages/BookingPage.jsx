@@ -1,31 +1,52 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer"; // Assuming Footer is the same
 import { useNavigate } from "react-router-dom";
+import { MapPin, CircleDollarSign, Clock } from "lucide-react";
 
 // Reusable Card Component
-const ServiceCard = ({ id, imageSrc, title, description, price, features }) => {
+const ServiceCard = ({
+  id,
+  imageSrc,
+  title,
+  description,
+  price,
+  features,
+  duration,
+}) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#202021] rounded-lg shadow-md overflow-hidden text-white w-[380px]">
+    <div
+      onClick={() => navigate(`/booking-page/${id}`)}
+      className="bg-[#202021] rounded-lg shadow-md overflow-hidden text-white w-[380px] cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+    >
       <img src={imageSrc} alt={title} className="w-[380px] h-[340px]" />
       <div className="p-4">
         <h3 className="text-xl font-bold mb-2">{title}</h3>
         <p className="text-gray-400 text-sm mb-3">{description}</p>
-        {price && <p className="text-lg font-semibold mb-3">{price}</p>}
+        {/* {price && <p className="text-lg font-semibold mb-3">{price}</p>}
         {features && (
           <ul className="list-disc list-inside text-gray-300 text-sm space-y-1 mb-4">
             {features.map((feature, index) => (
               <li key={index}>{feature}</li>
             ))}
           </ul>
-        )}
-        <button
-          onClick={() => navigate(`/booking-page/${id}`)}
-          className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md transition-colors text-sm"
-        >
-          BOOK NOW
-        </button>
+        )} */}
+
+        <div className="flex justify-between">
+          <div>
+            <Clock className="w-[32px]" />
+            {duration}
+          </div>
+          <div className="flex">
+            <CircleDollarSign className="w-[32px]" />
+            CA${price}
+          </div>
+          <div>
+            <MapPin className="w-[32px]" />
+            {/* {location} */}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -39,7 +60,7 @@ const BookingPage = () => {
       imageSrc: "/images/group.png",
       title: "Photography (Small Events)",
       description: "0-2 hours coverage. Perfect for intimate gatherings.",
-      price: "From $150",
+      price: "150",
       features: ["Up to 2 hours", "1 Photographer", "Digital gallery"],
     },
     {
@@ -47,7 +68,7 @@ const BookingPage = () => {
       imageSrc: "/images/lady.png",
       title: "Mini Session",
       description: "20-30 minutes, 1 outfit. Ideal for quick updates.",
-      price: "From $80",
+      price: "80",
       features: ["20-30 mins", "1 outfit", "5 edited images"],
     },
     {
@@ -55,7 +76,7 @@ const BookingPage = () => {
       imageSrc: "/images/ladies.png",
       title: "Large Group Session",
       description: "2-3 hours coverage. For family reunions or large parties.",
-      price: "From $300",
+      price: "300",
       features: ["2-3 hours", "1-2 Photographers", "Extensive digital gallery"],
     },
     {
@@ -63,7 +84,7 @@ const BookingPage = () => {
       imageSrc: "/images/family.png",
       title: "Family/Group Session",
       description: "1-2 hours coverage. Perfect for family portraits.",
-      price: "From $200",
+      price: "200",
       features: ["1-2 hours", "1 Photographer", "Digital gallery"],
     },
     {
@@ -71,7 +92,7 @@ const BookingPage = () => {
       imageSrc: "/images/red.png",
       title: "Creative Shots",
       description: "Conceptual and artistic photography sessions.",
-      price: "Price on Request",
+      price: "200",
       features: [
         "Custom concepts",
         "Styling assistance",
@@ -83,7 +104,7 @@ const BookingPage = () => {
       imageSrc: "/images/girl.png",
       title: "Kids Session",
       description: "Playful and memorable shots of your little ones.",
-      price: "From $120",
+      price: "120",
       features: ["1 hour", "Props included", "Fun environment"],
     },
     {
@@ -91,7 +112,7 @@ const BookingPage = () => {
       imageSrc: "/images/white.png",
       title: "Maternity Shoots",
       description: "Capturing the beauty of motherhood.",
-      price: "From $180",
+      price: "180",
       features: ["1-2 outfits", "Partner included", "Styling guide"],
     },
     {
@@ -99,7 +120,7 @@ const BookingPage = () => {
       imageSrc: "/images/blue.png",
       title: "Corporate Headshots",
       description: "Professional portraits for your business needs.",
-      price: "From $100",
+      price: "100",
       features: ["30 mins", "Online proofing", "Retouched images"],
     },
     {
@@ -119,7 +140,7 @@ const BookingPage = () => {
       imageSrc: "/images/grd.png",
       title: "Graduation",
       description: "Celebrate your academic achievement.",
-      price: "From $100",
+      price: "100",
       features: ["Cap & Gown", "Outdoor/Studio options", "Quick turnaround"],
     },
     {
@@ -127,7 +148,7 @@ const BookingPage = () => {
       imageSrc: "/images/sit.png",
       title: "Individual Session",
       description: "Personalized shoots for unique expressions.",
-      price: "From $150",
+      price: "150",
       features: ["1-2 hours", "Multiple outfits", "Concept development"],
     },
     {
@@ -135,7 +156,7 @@ const BookingPage = () => {
       imageSrc: "/images/guy.png",
       title: "Model/Headshot Session",
       description: "Professional shots for portfolios and auditions.",
-      price: "From $130",
+      price: "130",
       features: ["2-3 looks", "Retouching included", "Online gallery"],
     },
     {

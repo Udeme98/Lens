@@ -106,7 +106,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException('Email not found in our records. Please contact administrator.');
+      throw new NotFoundException('Email not found. Please contact administrator.');
     }
 
     if (!user.isActive) {

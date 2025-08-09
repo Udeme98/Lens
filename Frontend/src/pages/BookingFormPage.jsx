@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer"; // Assuming Footer is the same
 import { useParams, useNavigate } from "react-router-dom";
-import { Clock } from "lucide-react";
+import { CircleDollarSign, Clock } from "lucide-react";
 
 const BookingFormPage = () => {
   // State for the form data
@@ -56,116 +56,129 @@ const BookingFormPage = () => {
       imageSrc: "/images/group.png",
       title: "Photography (Small Events)",
       description: "0-2 hours coverage. Perfect for intimate gatherings.",
-      price: "150",
+      price: "150.00",
       features: ["Up to 2 hours", "1 Photographer", "Digital gallery"],
+      duration: "1 hour",
     },
     {
       id: "mimi-session",
       imageSrc: "/images/lady.png",
       title: "Mini Session",
       description: "20-30 minutes, 1 outfit. Ideal for quick updates.",
-      price: "80",
+      price: "80.00",
       features: ["20-30 mins", "1 outfit", "5 edited images"],
+      duration: "35 minutes",
     },
     {
       id: "large-group-session",
       imageSrc: "/images/ladies.png",
       title: "Large Group Session",
       description: "2-3 hours coverage. For family reunions or large parties.",
-      price: "300",
+      price: "300.00",
       features: ["2-3 hours", "1-2 Photographers", "Extensive digital gallery"],
+      duration: "1 hour 20 minutes",
     },
     {
       id: "family-group-session",
       imageSrc: "/images/family.png",
       title: "Family/Group Session",
       description: "1-2 hours coverage. Perfect for family portraits.",
-      price: "200",
+      price: "200.00",
       features: ["1-2 hours", "1 Photographer", "Digital gallery"],
+      duration: "1 hour",
     },
     {
       id: "crative-shots",
       imageSrc: "/images/red.png",
       title: "Creative Shots",
       description: "Conceptual and artistic photography sessions.",
-      price: "Price on Request",
+      price: "200.00",
       features: [
         "Custom concepts",
         "Styling assistance",
         "High-end retouching",
       ],
+      duration: "1 hour",
     },
     {
       id: "kids-session",
       imageSrc: "/images/girl.png",
       title: "Kids Session",
       description: "Playful and memorable shots of your little ones.",
-      price: "120",
+      price: "120.00",
       features: ["1 hour", "Props included", "Fun environment"],
+      duration: "1 hour",
     },
     {
       id: "materniity-shoots",
       imageSrc: "/images/white.png",
       title: "Maternity Shoots",
       description: "Capturing the beauty of motherhood.",
-      price: "180",
+      price: "180.00",
       features: ["1-2 outfits", "Partner included", "Styling guide"],
+      duration: "1 hour",
     },
     {
       id: "corporate-headshots",
       imageSrc: "/images/blue.png",
       title: "Corporate Headshots",
       description: "Professional portraits for your business needs.",
-      price: "100",
+      price: "100.00",
       features: ["30 mins", "Online proofing", "Retouched images"],
+      duration: "30 minutes",
     },
     {
       id: "events-coverage",
       imageSrc: "/images/two.png", // Placeholder - replace with actual image if available
       title: "Event Coverage",
       description: "Comprehensive coverage for various events.",
-      price: "Custom Quote",
+      price: "80.00",
       features: [
         "Full event coverage",
         "Multiple photographers",
         "Highlight reel",
       ],
+      duration: "1 hour",
     },
     {
       id: "garduation-session",
       imageSrc: "/images/grd.png",
       title: "Graduation",
       description: "Celebrate your academic achievement.",
-      price: "From $100",
+      price: "100.00",
       features: ["Cap & Gown", "Outdoor/Studio options", "Quick turnaround"],
+      duration: "1 hour",
     },
     {
       id: "individual-session",
       imageSrc: "/images/sit.png",
       title: "Individual Session",
       description: "Personalized shoots for unique expressions.",
-      price: "150",
+      price: "150.00",
       features: ["1-2 hours", "Multiple outfits", "Concept development"],
+      duration: "30 minutes",
     },
     {
       id: "model-session",
       imageSrc: "/images/guy.png",
       title: "Model/Headshot Session",
       description: "Professional shots for portfolios and auditions.",
-      price: "130",
+      price: "130.00",
       features: ["2-3 looks", "Retouching included", "Online gallery"],
+      duration: "1 hour",
     },
     {
       id: "brand-session",
       imageSrc: "/images/girls.png",
       title: "Brand Shoots",
       description: "Visual content creation for businesses and brands.",
-      price: "Custom Quote",
+      price: "120.00",
       features: [
         "Product photography",
         "Lifestyle shots",
         "Branding consultation",
       ],
+      duration: "1 hour",
     },
   ];
 
@@ -379,7 +392,7 @@ const BookingFormPage = () => {
           <img
             src={serviceDetails.imageSrc}
             alt={serviceDetails.title}
-            className="w-full max-h-[500px] object-cover object-[0_20%] rounded-md"
+            className="w-full max-h-[500px] object-cover object-[0_10%] rounded-md"
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-6">
             <div className="text-white">
@@ -410,7 +423,7 @@ const BookingFormPage = () => {
                   />
                 </svg> */}
                 <Clock className="w-[32px]" />
-                <span className="text-red-300">{serviceDetails.duration}</span>
+                <span className="">{serviceDetails.duration}</span>
               </div>
               <div className="flex items-center gap-2">
                 {/* <svg
@@ -428,6 +441,7 @@ const BookingFormPage = () => {
                     clipRule="evenodd"
                   />
                 </svg> */}
+                <CircleDollarSign className="w-[32px]" />
                 <span>{serviceDetails.price}</span>
               </div>
             </div>

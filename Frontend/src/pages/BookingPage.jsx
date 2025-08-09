@@ -34,7 +34,7 @@ const ServiceCard = ({
         )} */}
 
         <div className="flex justify-between">
-          <div>
+          <div className="flex">
             <Clock className="w-[32px]" />
             {duration}
           </div>
@@ -43,7 +43,7 @@ const ServiceCard = ({
             CA${price}
           </div>
           <div>
-            <MapPin className="w-[32px]" />
+            <MapPin className="w-[32px] text-[#202021]" />
             {/* {location} */}
           </div>
         </div>
@@ -60,116 +60,129 @@ const BookingPage = () => {
       imageSrc: "/images/group.png",
       title: "Photography (Small Events)",
       description: "0-2 hours coverage. Perfect for intimate gatherings.",
-      price: "150",
+      price: "150.00",
       features: ["Up to 2 hours", "1 Photographer", "Digital gallery"],
+      duration: "1 hour",
     },
     {
       id: "mimi-session",
       imageSrc: "/images/lady.png",
       title: "Mini Session",
       description: "20-30 minutes, 1 outfit. Ideal for quick updates.",
-      price: "80",
+      price: "80.00",
       features: ["20-30 mins", "1 outfit", "5 edited images"],
+      duration: "35 minutes",
     },
     {
       id: "large-group-session",
       imageSrc: "/images/ladies.png",
       title: "Large Group Session",
       description: "2-3 hours coverage. For family reunions or large parties.",
-      price: "300",
+      price: "300.00",
       features: ["2-3 hours", "1-2 Photographers", "Extensive digital gallery"],
+      duration: "1 hour 20 minutes",
     },
     {
       id: "family-group-session",
       imageSrc: "/images/family.png",
       title: "Family/Group Session",
       description: "1-2 hours coverage. Perfect for family portraits.",
-      price: "200",
+      price: "200.00",
       features: ["1-2 hours", "1 Photographer", "Digital gallery"],
+      duration: "1 hour",
     },
     {
       id: "crative-shots",
       imageSrc: "/images/red.png",
       title: "Creative Shots",
       description: "Conceptual and artistic photography sessions.",
-      price: "200",
+      price: "200.00",
       features: [
         "Custom concepts",
         "Styling assistance",
         "High-end retouching",
       ],
+      duration: "1 hour",
     },
     {
       id: "kids-session",
       imageSrc: "/images/girl.png",
       title: "Kids Session",
       description: "Playful and memorable shots of your little ones.",
-      price: "120",
+      price: "120.00",
       features: ["1 hour", "Props included", "Fun environment"],
+      duration: "1 hour",
     },
     {
       id: "materniity-shoots",
       imageSrc: "/images/white.png",
       title: "Maternity Shoots",
       description: "Capturing the beauty of motherhood.",
-      price: "180",
+      price: "180.00",
       features: ["1-2 outfits", "Partner included", "Styling guide"],
+      duration: "1 hour",
     },
     {
       id: "corporate-headshots",
       imageSrc: "/images/blue.png",
       title: "Corporate Headshots",
       description: "Professional portraits for your business needs.",
-      price: "100",
+      price: "100.00",
       features: ["30 mins", "Online proofing", "Retouched images"],
+      duration: "30 minutes",
     },
     {
       id: "events-coverage",
       imageSrc: "/images/two.png", // Placeholder - replace with actual image if available
       title: "Event Coverage",
       description: "Comprehensive coverage for various events.",
-      price: "Custom Quote",
+      price: "80.00",
       features: [
         "Full event coverage",
         "Multiple photographers",
         "Highlight reel",
       ],
+      duration: "1 hour",
     },
     {
       id: "garduation-session",
       imageSrc: "/images/grd.png",
       title: "Graduation",
       description: "Celebrate your academic achievement.",
-      price: "100",
+      price: "100.00",
       features: ["Cap & Gown", "Outdoor/Studio options", "Quick turnaround"],
+      duration: "1 hour",
     },
     {
       id: "individual-session",
       imageSrc: "/images/sit.png",
       title: "Individual Session",
       description: "Personalized shoots for unique expressions.",
-      price: "150",
+      price: "150.00",
       features: ["1-2 hours", "Multiple outfits", "Concept development"],
+      duration: "30 minutes",
     },
     {
       id: "model-session",
       imageSrc: "/images/guy.png",
       title: "Model/Headshot Session",
       description: "Professional shots for portfolios and auditions.",
-      price: "130",
+      price: "130.00",
       features: ["2-3 looks", "Retouching included", "Online gallery"],
+      duration: "1 hour",
     },
     {
       id: "brand-session",
       imageSrc: "/images/girls.png",
       title: "Brand Shoots",
       description: "Visual content creation for businesses and brands.",
-      price: "Custom Quote",
+      price: "120.00",
       features: [
         "Product photography",
         "Lifestyle shots",
         "Branding consultation",
       ],
+      duration: "1 hour",
     },
     // Add more services as needed based on your actual data
   ];

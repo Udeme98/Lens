@@ -32,7 +32,7 @@ const AboutUs = () => {
 
             {/* Right side - About content */}
             <div className="space-y-2 ">
-              <h1 className="text-4xl lg:text-5xl font-bold text-white italic">
+              <h1 className="text-4xl lg:text-5xl font-bold text-white italic font-brandon">
                 About Damian
               </h1>
 

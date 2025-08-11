@@ -5,6 +5,8 @@ export default {
     extend: {
       fontFamily: {
         eras: ['"Eras Demi ITC"', "sans-serif"],
+        brandon: ["Brandon Grotesque", "sans-serif"],
+        sans: ["Brandon Grotesque", "sans-serif"], // Make Brandon the default sans font
       },
     },
   },

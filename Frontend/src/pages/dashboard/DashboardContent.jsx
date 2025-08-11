@@ -1,16 +1,49 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Eye, Home, LogOut } from "lucide-react";
 
 const DashboardContent = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear any stored authentication data (if using localStorage, sessionStorage, etc.)
+    localStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("isLoggedIn");
+
+    // Navigate to home page
+    navigate("/");
+  };
+
   return (
     <>
       {/* Main content header */}
-      <div className="mb-8">
-        <h1 className="text-lg text-zinc-400 font-medium tracking-wide">
-          DASHBOARD
-        </h1>
-        <p className="text-3xl font-semibold mt-2">
-          Good Afternoon, Lens of Damiano
-        </p>
+      <div className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-lg text-zinc-400 font-medium tracking-wide">
+            DASHBOARD
+          </h1>
+          <p className="text-3xl font-semibold mt-2">
+            Good Afternoon, Lens of Damiano
+          </p>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-zinc-800"
+            title="Go to Home"
+          >
+            <Home className="w-5 h-5" />
+            <span className="text-sm">Home</span>
+          </button>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-zinc-400 hover:text-red-400 transition-colors p-2 rounded-lg hover:bg-zinc-800"
+            title="Logout"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="text-sm">Logout</span>
+          </button>
+        </div>
       </div>
 
       {/* Summary Cards */}
@@ -37,7 +70,16 @@ const DashboardContent = () => {
 
       {/* Recent Inbox Table */}
       <div className="bg-zinc-900 rounded-xl p-6 shadow-md mb-6">
-        <h2 className="text-xl font-semibold mb-4">Recent Inbox</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Recent Inbox</h2>
+          <button
+            onClick={() => navigate("/dashboard/inbox")}
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+          >
+            <Eye className="w-4 h-4" />
+            <span className="text-sm">See more</span>
+          </button>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -60,7 +102,7 @@ const DashboardContent = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4].map((i) => (
+              {[1, 2, 3].map((i) => (
                 <tr
                   key={i}
                   className="border-b border-zinc-800 last:border-b-0"
@@ -79,7 +121,16 @@ const DashboardContent = () => {
 
       {/* Recent Invoices Table */}
       <div className="bg-zinc-900 rounded-xl p-6 shadow-md mb-8">
-        <h2 className="text-xl font-semibold mb-4">Recent Invoices</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Recent Invoices</h2>
+          <button
+            onClick={() => navigate("/dashboard/invoice")}
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+          >
+            <Eye className="w-4 h-4" />
+            <span className="text-sm">See more</span>
+          </button>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -102,7 +153,7 @@ const DashboardContent = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4].map((i) => (
+              {[1, 2, 3].map((i) => (
                 <tr
                   key={i}
                   className="border-b border-zinc-800 last:border-b-0"
@@ -121,7 +172,16 @@ const DashboardContent = () => {
 
       {/* Recent Contracts Table */}
       <div className="bg-zinc-900 rounded-xl p-6 shadow-md mb-8">
-        <h2 className="text-xl font-semibold mb-4">Recent Contracts</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Recent Contracts</h2>
+          <button
+            onClick={() => navigate("/dashboard/contract")}
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+          >
+            <Eye className="w-4 h-4" />
+            <span className="text-sm">See more</span>
+          </button>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -144,7 +204,7 @@ const DashboardContent = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4].map((i) => (
+              {[1, 2, 3].map((i) => (
                 <tr
                   key={i}
                   className="border-b border-zinc-800 last:border-b-0"

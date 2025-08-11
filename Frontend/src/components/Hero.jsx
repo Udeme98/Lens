@@ -6,7 +6,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
         <div className="w-full lg:w-[35%] space-y-8">
           <div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight font-eras">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight font-brandon">
               We bring Your Events to life with our stunning visuals
             </h1>
           </div>
@@ -23,7 +23,7 @@ const Hero = () => {
 
         <div className="w-full lg:w-[65%] relative">
           <img
-            src="/images/top.png"
+            src="/images/toop.png"
             alt="Wedding couple in scenic landscape"
             className="w-full h-96 lg:h-[500px] object-cover rounded-lg shadow-lg"
           />

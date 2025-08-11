@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Brandon Grotesque", sans-serif;
+  }
+
+  body {
+    font-family: "Brandon Grotesque", sans-serif;
+  }
+
+  * {
+    font-family: "Brandon Grotesque", sans-serif;
+  }
+}

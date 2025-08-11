@@ -7,14 +7,14 @@ const Gallery = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="relative">
             <img
-              src="images/glass.png"
+              src="images/dl.png"
               alt="Wedding reception with champagne toast"
               className="w-full h-80 object-cover rounded-lg shadow-lg"
             />
           </div>
           <div className="relative">
             <img
-              src="images/cake.png"
+              src="images/dr.png"
               alt="Birthday celebration with candles"
               className="w-full h-80 object-cover rounded-lg shadow-lg"
             />

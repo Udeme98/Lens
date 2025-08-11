@@ -4,6 +4,21 @@ import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const navigate = useNavigate();
 
+  const handleLoginClick = () => {
+    // Check if user is logged in
+    const isLoggedIn =
+      localStorage.getItem("isLoggedIn") ||
+      sessionStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn) {
+      // User is logged in, navigate to dashboard
+      navigate("/dashboard");
+    } else {
+      // User is not logged in, navigate to login page
+      navigate("/login-page");
+    }
+  };
+
   return (
     <footer className="px-8 py-8 bg-[#262627]">
       <div className="max-w-7xl mx-auto">
@@ -32,7 +47,7 @@ const Footer = () => {
         <div className="text-right">
           <LogIn
             className="text-white cursor-pointer"
-            onClick={() => navigate("login-page")}
+            onClick={handleLoginClick}
           />
           <p className="text-sm font-semibold text-white">
             © 2024 LENS BY DAMIANO

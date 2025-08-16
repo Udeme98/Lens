@@ -1,3 +1,0 @@
-# Lens
-
-A booking website.

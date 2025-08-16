@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; }
+        .header { background-color: #262627; color: white; padding: 10px 20px; border-radius: 8px 8px 0 0; text-align: center; }
+        .content { padding: 20px; }
+        .field { margin-bottom: 15px; }
+        .field strong { display: inline-block; width: 150px; color: #555; }
+        .footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: #777; }
+        ul { list-style-type: none; padding: 0; margin: 0; }
+        li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Photo Booking Request!</h2>
+        </div>
+        <div class="content">
+            <p>You have received a new photo booking request with the following details:</p>
+
+            <div class="field">
+                <strong>Name:</strong> {{name}}
+            </div>
+            <div class="field">
+                <strong>Email:</strong> {{email}}
+            </div>
+            <div class="field">
+                <strong>Phone Number:</strong> {{phone}}
+            </div>
+            <div class="field">
+                <strong>Location:</strong> {{location}}
+            </div>
+            <div class="field">
+                <strong>Event Date:</strong> {{eventDate}}
+            </div>
+            <div class="field">
+                <strong>Duration:</strong> {{duration}}
+            </div>
+            <div class="field">
+                <strong>Approx. Budget:</strong> {{budget}}
+            </div>
+            <div class="field">
+                <strong>Event Type:</strong> {{eventType}}
+            </div>
+            <div class="field">
+                <strong>Services:</strong> {{services}}
+            </div>
+            <div class="field">
+                <strong>Message:</strong><br>
+                <p>{{message}}</p>
+            </div>
+            <hr>
+            <p>Please reply directly to this email to contact the client ({{email}}).</p>
+        </div>
+        <div class="footer">
+            <p>This email was sent automatically by your photobooking website.</p>
+        </div>
+    </div>
+</body>
+</html>
